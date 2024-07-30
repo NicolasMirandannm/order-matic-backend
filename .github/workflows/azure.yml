@@ -1,0 +1,23 @@
+name: Pull Request close work item
+
+on:
+  pull_request:
+    types: [opened, closed]
+    branches:
+      - master
+      - development
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: maikmb/github-actions-pr-close-work-item@master
+      env:
+        ado_token: '${{ secrets.ADO_PERSONAL_ACCESS_TOKEN }}'   
+        github_token: '${{ secrets.GH_TOKEN }}'    
+        ado_organization: 'nicolaslima'
+        ado_project: 'OrderMatic'
+        ado_wit: 'Task'
+        ado_on_close_state: 'Closed'
+        ado_on_open_state: 'Active'
+        
