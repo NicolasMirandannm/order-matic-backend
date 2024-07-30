@@ -18,6 +18,5 @@ jobs:
         ado_organization: 'nicolaslima'
         ado_project: 'OrderMatic'
         ado_wit: 'Task'
-        ado_on_close_state: 'Closed'
-        ado_on_open_state: 'Active'
-        
+        ado_on_close_state: 'Done'
+        ado_on_open_state: 'Code Review'
