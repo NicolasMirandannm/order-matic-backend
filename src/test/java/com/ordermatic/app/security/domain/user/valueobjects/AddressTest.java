@@ -1,4 +1,4 @@
 package com.ordermatic.app.security.domain.user.valueobjects;
 
-public class Address {
+public class AddressTest {
 }
