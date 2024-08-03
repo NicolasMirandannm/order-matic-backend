@@ -1,16 +1,18 @@
 package com.ordermatic.shared.ddd;
 
+import com.ordermatic.shared.utilitaires.services.AbstractEquals;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Objects;
-
+@Slf4j
 @Getter
-public abstract class DomainEntity<T> {
+public abstract class DomainEntity<T> extends AbstractEquals {
   protected final UniqueIdentifier id;
 
   protected DomainEntity(UniqueIdentifier id) {
     this.id = id;
+    this.idObject = this.getClass().getSimpleName();
   }
 
   public String getIdValue() {
@@ -30,13 +32,5 @@ public abstract class DomainEntity<T> {
     }
 
     return this.id.equals(other.getId());
-  }
-
-  public boolean strictEquals(Object obj) {
-    if (!this.equals(obj)) {
-      return false;
-    }
-    DomainEntity<T> other = (DomainEntity<T>) obj;
-    return Objects.equals(this, other);
   }
 }

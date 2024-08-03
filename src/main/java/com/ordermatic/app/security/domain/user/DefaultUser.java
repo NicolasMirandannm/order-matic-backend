@@ -1,6 +1,5 @@
 package com.ordermatic.app.security.domain.user;
 
-import com.ordermatic.shared.ddd.AggregateRoot;
 import com.ordermatic.shared.ddd.DomainEntity;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 
