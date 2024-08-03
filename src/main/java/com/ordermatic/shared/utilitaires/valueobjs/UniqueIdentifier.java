@@ -1,21 +1,29 @@
 package com.ordermatic.shared.utilitaires.valueobjs;
 
 import com.ordermatic.shared.ddd.ValueObject;
+import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.UUID;
 
-public class UniqueIdentifier extends ValueObject<String> {
+@Getter
+public class UniqueIdentifier extends ValueObject {
+
+  private final String value;
+
   public UniqueIdentifier(@NonNull String uuidValue) {
-    super(generateUUIDFromValue(uuidValue));
+    super();
+    this.value = generateUUIDFromValue(uuidValue);
   }
 
   public UniqueIdentifier(@NonNull UUID uuid) {
-    super(generateFromUUID(uuid));
+    super();
+    this.value = generateFromUUID(uuid);
   }
 
   public UniqueIdentifier() {
-    super(generateRandomUUID());
+    super();
+    this.value = generateRandomUUID();
   }
 
 
