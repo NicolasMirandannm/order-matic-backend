@@ -10,12 +10,8 @@ public class Cpf extends ValueObject {
 
   private final String value;
 
-  public Cpf() {
-    this.value = null;
-  }
-
-  public Cpf(@NonNull String value) {
-    this.value = getValidCpf(value);
+  public Cpf(String value) {
+    this.value = value != null ? getValidCpf(value) : null;
   }
 
   private static String getCpfWithoutMask(String value) {

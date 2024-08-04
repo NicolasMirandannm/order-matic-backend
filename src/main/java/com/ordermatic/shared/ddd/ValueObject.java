@@ -1,12 +1,11 @@
 package com.ordermatic.shared.ddd;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
 
-@Getter
+
 @Slf4j
 public abstract class ValueObject {
   private final String objectName;

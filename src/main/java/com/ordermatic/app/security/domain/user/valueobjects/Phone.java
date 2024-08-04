@@ -13,7 +13,7 @@ public class Phone extends ValueObject {
   private final static Integer DDD_LENGTH = 2;
 
   public Phone(String value) {
-    this.value = getValidPhoneNumber(value);
+    this.value = value != null ? getValidPhoneNumber(value) : null;
   }
 
   private static String getValidPhoneNumber(String value) {
