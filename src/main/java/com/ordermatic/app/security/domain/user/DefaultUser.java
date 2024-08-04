@@ -10,7 +10,7 @@ public abstract class DefaultUser extends DomainEntity<DefaultUser> {
   protected String name;
   protected Email email;
   protected Phone phone;
-  protected Password password;
+  protected String password;
 
   protected DefaultUser(UniqueIdentifier id) {
     super(id);
