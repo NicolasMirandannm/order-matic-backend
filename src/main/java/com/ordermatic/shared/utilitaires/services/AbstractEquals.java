@@ -1,22 +1,18 @@
-package com.ordermatic.shared.ddd;
+package com.ordermatic.shared.utilitaires.services;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
 
-
 @Slf4j
-public abstract class ValueObject {
-  private final String objectName;
+public abstract class AbstractEquals {
+  protected String idObject;
 
-  protected ValueObject() {
-    this.objectName = this.getClass().getSimpleName();
-  }
+  public abstract boolean equals(Object obj);
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null || obj.getClass() != this.getClass()) {
+  public boolean strictEquals(Object obj) {
+    if (!this.equals(obj)) {
       return false;
     }
 
@@ -32,7 +28,7 @@ public abstract class ValueObject {
             return false;
           }
         } catch (IllegalAccessException e) {
-          log.error("Error while comparing {} value object", objectName, e);
+          log.error("Error while comparing {} objects", idObject, e);
           return false;
         }
       }
