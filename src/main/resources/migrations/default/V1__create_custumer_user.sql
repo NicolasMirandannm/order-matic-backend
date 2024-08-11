@@ -1,4 +1,6 @@
-create table customer_user (
+create schema if not exists security;
+
+create table security.customer_user (
     id uuid primary key,
     name varchar(150) not null,
     password varchar(255) not null,
