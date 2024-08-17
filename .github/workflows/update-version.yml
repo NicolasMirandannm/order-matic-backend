@@ -19,7 +19,7 @@ jobs:
           java-version: 22
       - name: Bump version
         id: bump
-        uses: mickem/gh-action-bump-maven-version
+        uses: nnichols/maven-version-bump-action@v3
       - name: Deploy project
         if: steps.bump.outputs.bumped == false
         run: mvn deploy
