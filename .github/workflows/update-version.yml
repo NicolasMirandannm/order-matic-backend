@@ -3,18 +3,23 @@ name: Update Project Version
 on:
   push:
     branches:
-      - main
-      
+      - 'main'
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Latest Commit
-      uses: actions/checkout@v2
-    - name: Bump Version
-      id: bump
-      uses: nnichols/maven-version-bump-action@v3
-      with:
-        github-token: ${{ secrets.github_token }}
-    - name: Print Version
-      run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_LOGIN_TOKEN }}
+          ref: ${{ github.head_ref }}
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Bump version
+        id: bump
+        uses: mickem/gh-action-bump-maven-version@v1.0.0
+      - name: Deploy project
+        if: steps.bump.outputs.bumped == false
+        run: mvn deploy
