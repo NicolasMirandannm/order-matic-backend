@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-          fetch-depth: 0
 
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -41,6 +38,6 @@ jobs:
           mvn versions:commit
 
       - name: Commit & Push changes
-        uses: actions-js/push@master
+        uses: actions-js/push@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
