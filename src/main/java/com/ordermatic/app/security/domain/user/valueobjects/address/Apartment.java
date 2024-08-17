@@ -1,12 +1,10 @@
 package com.ordermatic.app.security.domain.user.valueobjects.address;
 
+import com.ordermatic.shared.exceptions.DomainException;
+
 public record Apartment(String number, String block, String floor, String observation) {
-    public Apartment {
-        if (number == null || number.isBlank()) {
-            throw new IllegalArgumentException("Apartment number cannot be empty.");
-        }
-        if (floor == null || floor.isBlank()) {
-            throw new IllegalArgumentException("Apartment floor cannot be empty.");
-        }
-    }
+  public Apartment {
+    DomainException.throwWhenNullOrEmpty(number, "Apartment number");
+    DomainException.throwWhenNullOrEmpty(floor, "Apartment floor");
+  }
 }

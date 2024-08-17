@@ -5,7 +5,7 @@ import lombok.NonNull;
 
 import java.util.Optional;
 
-public abstract class Repository<Aggregate extends AggregateRoot<?>, Infra extends InfraEntity<?>> {
+public abstract class Repository<Aggregate extends AggregateRoot, Infra extends InfraEntity> {
 
   private final Mapper<Aggregate, Infra> mapper;
 

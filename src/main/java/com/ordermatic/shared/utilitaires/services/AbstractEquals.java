@@ -1,13 +1,19 @@
 package com.ordermatic.shared.utilitaires.services;
 
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
 
 @Slf4j
+@SuperBuilder
 public abstract class AbstractEquals {
-  protected String idObject;
+  private final String idObject;
+
+  protected AbstractEquals(String idObject) {
+    this.idObject = idObject;
+  }
 
   public abstract boolean equals(Object obj);
 
