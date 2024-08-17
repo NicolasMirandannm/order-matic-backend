@@ -3,7 +3,7 @@ name: Update Project Version
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
