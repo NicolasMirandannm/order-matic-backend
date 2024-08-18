@@ -47,4 +47,4 @@ jobs:
           git config --global user.email "nicolasleonardonnm@hotmail.com"
           git add pom.xml
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push https://${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main
+          git push https://${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main --force
