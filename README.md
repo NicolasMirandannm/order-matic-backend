@@ -9,4 +9,3 @@ pattern of pull request title:
 ---------------------
 Up infra:
 - docker-compose -f ./infrastructure/development/docker-compose.yml up -d 
-
