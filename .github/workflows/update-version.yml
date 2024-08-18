@@ -1,5 +1,4 @@
 name: Update Project Version
-
 on:
   push:
     branches:
