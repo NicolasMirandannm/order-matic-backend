@@ -37,7 +37,13 @@ jobs:
           mvn versions:set -DnewVersion=${{ env.NEW_VERSION }}
           mvn versions:commit
 
-      - name: Commit & Push changes
-        uses: actions-js/push@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: GIT commit and push docs
+        env: 
+          CI_COMMIT_MESSAGE: incremented pom.xml version
+          CI_COMMIT_AUTHOR: Continuous Integration
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "nicolasleonardonnm@hotmail.com"
+          git add pom.xml
+          git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push
