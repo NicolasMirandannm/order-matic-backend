@@ -37,13 +37,14 @@ jobs:
           mvn versions:set -DnewVersion=${{ env.NEW_VERSION }}
           mvn versions:commit
 
-      - name: GIT commit and push docs
+      - name: GIT commit and push pom.xml
         env: 
           CI_COMMIT_MESSAGE: incremented pom.xml version
           CI_COMMIT_AUTHOR: Continuous Integration
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config --global user.email "nicolasleonardonnm@hotmail.com"
           git add pom.xml
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push
+          git push https://${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main
