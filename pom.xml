@@ -6,13 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>ordermatic</artifactId>
 	<version>1.0.3</version>
-	<name>ordermatic</name>
-	<description>Demo project for Spring Boot</description>
+	<name>OrderMatic</name>
+	<description>The best delivery system ;)</description>
 	<url/>
 	<licenses>
 		<license/>

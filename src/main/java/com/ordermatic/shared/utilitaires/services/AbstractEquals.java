@@ -11,8 +11,8 @@ import java.util.Objects;
 public abstract class AbstractEquals {
   private final String idObject;
 
-  protected AbstractEquals(String idObject) {
-    this.idObject = idObject;
+  protected AbstractEquals() {
+    this.idObject = this.getClass().getSimpleName();
   }
 
   public abstract boolean equals(Object obj);

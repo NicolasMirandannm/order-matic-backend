@@ -24,6 +24,9 @@ public class AddressEntity extends InfraEntity {
   @Column(name = "city")
   private String city;
 
+  @Column(name = "main")
+  private Boolean main;
+
   @Column(name = "state")
   private String state;
 
@@ -44,4 +47,8 @@ public class AddressEntity extends InfraEntity {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "apartment_id")
   private ApartmentEntity apartment;
+
+  public boolean isMain() {
+    return main;
+  }
 }

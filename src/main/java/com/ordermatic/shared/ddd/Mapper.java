@@ -1,6 +1,8 @@
 package com.ordermatic.shared.ddd;
 
+import lombok.NonNull;
+
 public interface Mapper <Domain extends DomainEntity, Infra extends InfraEntity> {
-    Domain toDomain(Infra infra);
-    Infra toPersistence(Domain domain);
+    Domain toDomain(@NonNull Infra infra);
+    Infra toPersistence(@NonNull Domain domain);
 }

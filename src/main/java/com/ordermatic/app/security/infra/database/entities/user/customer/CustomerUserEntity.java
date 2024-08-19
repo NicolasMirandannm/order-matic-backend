@@ -2,16 +2,15 @@ package com.ordermatic.app.security.infra.database.entities.user.customer;
 
 import com.ordermatic.shared.ddd.InfraEntity;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "custumer_user", schema = "security")
 public class CustomerUserEntity extends InfraEntity {
@@ -32,5 +31,6 @@ public class CustomerUserEntity extends InfraEntity {
   private String password;
 
   @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = AddressEntity.class)
-  private Set<AddressEntity> addresses;
+  private List<AddressEntity> addresses;
+
 }

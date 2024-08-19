@@ -2,15 +2,12 @@ package com.ordermatic.shared.ddd;
 
 import com.ordermatic.shared.utilitaires.services.AbstractEquals;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.reflect.Field;
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -33,10 +30,6 @@ public abstract class InfraEntity extends AbstractEquals {
 
   @Column(name = "updated_at")
   private OffsetDateTime updatedAt;
-
-  protected InfraEntity() {
-    super(InfraEntity.class.getSimpleName());
-  }
 
   @PrePersist
   protected void onCreate() {
