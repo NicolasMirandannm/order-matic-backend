@@ -1,21 +1,25 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:14
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: ordermatic
+  mongodb-dev:
+    image: mongo:4.2.3-bionic
+    container_name: mongodb-dev
     ports:
-      - "5432:5432"
-#    volumes:
-#      - db-data:/var/lib/postgresql/data
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - ../mongo-entrypoint:/docker-entrypoint-initdb.d
+      - db-data:/data/db
+      - mongoconfig:/data/configdb
     networks:
       - order-matic-network
 
 volumes:
   db-data:
+  mongoconfig:
 
 networks:
     order-matic-network:
