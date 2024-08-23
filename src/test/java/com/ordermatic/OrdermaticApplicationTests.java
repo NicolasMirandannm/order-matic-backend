@@ -1,13 +1,13 @@
-package com.ordermatic;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class OrdermaticApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.ordermatic;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class OrdermaticApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}

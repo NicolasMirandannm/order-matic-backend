@@ -2,44 +2,42 @@ package com.ordermatic.shared.ddd;
 
 import com.ordermatic.shared.utilitaires.services.AbstractEquals;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.lang.reflect.Field;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @Setter
-@Slf4j
-@SuperBuilder
-@MappedSuperclass
 public abstract class InfraEntity extends AbstractEquals {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
-
-  @Version
-  @Column(name = "version")
-  private Integer version;
-
-  @Column(name = "created_at")
+  @CreatedDate
   private OffsetDateTime createdAt;
 
-  @Column(name = "updated_at")
+  @CreatedBy
+  private String createdBy;
+
+  @LastModifiedDate
   private OffsetDateTime updatedAt;
 
-  @PrePersist
-  protected void onCreate() {
-    this.createdAt = OffsetDateTime.now();
-    this.updatedAt = OffsetDateTime.now();
-  }
+  @LastModifiedBy
+  private String modifiedBy;
 
-  @PreUpdate
-  protected void onUpdate() {
-    this.updatedAt = OffsetDateTime.now();
+  @Version
+  private Integer version;
+
+  protected InfraEntity() {
+    super(InfraEntity.class.getSimpleName());
   }
 
   @Override
@@ -50,10 +48,6 @@ public abstract class InfraEntity extends AbstractEquals {
 
     InfraEntity other = (InfraEntity) obj;
 
-    if (this.id == null) {
-      return other.getId() == null;
-    }
-
-    return this.id.equals(other.getId());
+    return Objects.equals(this, other);
   }
 }
