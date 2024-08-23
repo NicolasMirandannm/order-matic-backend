@@ -1,14 +1,19 @@
 package com.ordermatic.app.security.infra.config;
 
+import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+import static java.util.Collections.singletonList;
 
 @Configuration
 @EnableMongoRepositories(
@@ -18,24 +23,28 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class SecurityMongoDbConfiguration {
 
   protected static final String MONGO_TEMPLATE = "securityMongoTemplate";
-  private static final String SECURITY_APP_PROPERTIES = "spring.data.mongodb.security";
+  private static final String MONGO_SECURITY = "mongodb.security";
+  private static final String MONGO_SECURITY_PROPERTIES = "securityMongoProperties";
 
+  @Bean(name = MONGO_SECURITY_PROPERTIES)
+  @ConfigurationProperties(prefix = MONGO_SECURITY)
   @Primary
-  @Bean(name = "securityDatabaseProperties")
-  @ConfigurationProperties(prefix = SECURITY_APP_PROPERTIES)
-  public MongoProperties getSecurityProps() {
+  public MongoProperties mongoProperties() {
     return new MongoProperties();
   }
 
   @Primary
-  @Bean(name = MONGO_TEMPLATE)
-  public MongoTemplate securityMongoTemplate() {
-    return new MongoTemplate(securityMongoDatabaseFactory(getSecurityProps()));
-  }
-
-  @Primary
-  @Bean
-  public MongoDatabaseFactory securityMongoDatabaseFactory(MongoProperties props) {
-    return new SimpleMongoClientDatabaseFactory(props.getUri());
+  @Bean(name = "securityMongoClient")
+  public MongoClient mongoClient(@Qualifier(MONGO_SECURITY_PROPERTIES) MongoProperties mongoProperties) {
+    MongoCredential credential = MongoCredential.createCredential(
+      mongoProperties.getUsername(),
+      mongoProperties.getDatabase(),
+      mongoProperties.getPassword()
+    );
+    return MongoClients.create(MongoClientSettings.builder()
+        .applyToClusterSettings(builder -> builder.hosts(
+          singletonList(new ServerAddress(mongoProperties.getHost(), mongoProperties.getPort()))))
+        .credential(credential)
+      .build());
   }
 }
