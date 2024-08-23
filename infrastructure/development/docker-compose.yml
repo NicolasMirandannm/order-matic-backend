@@ -11,7 +11,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
     volumes:
-      - ../mongo-entrypoint:/docker-entrypoint-initdb.d
+      - ../mongo-entrypoint/init.js:/docker-entrypoint-initdb.d/init.js:ro
       - db-data:/data/db
       - mongoconfig:/data/configdb
     networks:
