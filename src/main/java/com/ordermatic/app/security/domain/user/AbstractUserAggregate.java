@@ -11,13 +11,13 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder(setterPrefix = "with")
-public abstract class DefaultUserAggregate extends AggregateRoot {
+public abstract class AbstractUserAggregate extends AggregateRoot {
   protected String name;
   protected Email email;
   protected Phone phone;
   protected String password;
 
-  protected DefaultUserAggregate(UniqueIdentifier id) {
+  protected AbstractUserAggregate(UniqueIdentifier id) {
     super(id);
   }
 }

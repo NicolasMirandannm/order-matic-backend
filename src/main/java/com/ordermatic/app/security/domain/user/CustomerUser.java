@@ -14,7 +14,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @SuperBuilder(builderMethodName = "aCustomerUser", setterPrefix = "with")
-public class CustomerUser extends DefaultUserAggregate {
+public class CustomerUser extends AbstractUserAggregate {
   private List<Address> addresses;
   private Address mainAddress;
   private Cpf cpf;
