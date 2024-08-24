@@ -36,18 +36,4 @@ public abstract class InfraEntity extends AbstractEquals {
   @Version
   private Integer version;
 
-  protected InfraEntity() {
-    super(InfraEntity.class.getSimpleName());
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null || obj.getClass() != this.getClass()) {
-      return false;
-    }
-
-    InfraEntity other = (InfraEntity) obj;
-
-    return Objects.equals(this, other);
-  }
 }

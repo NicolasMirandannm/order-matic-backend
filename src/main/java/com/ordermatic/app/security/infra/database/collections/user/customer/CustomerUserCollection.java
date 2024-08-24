@@ -8,7 +8,8 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -31,5 +32,11 @@ public class CustomerUserCollection extends InfraEntity {
 
   private String password;
 
-  private Set<AddressDocument> addresses;
+  private List<AddressDocument> addresses;
+
+  public void addAddress(AddressDocument address) {
+    this.addresses = new ArrayList<>(this.addresses);
+    this.addresses.add(address);
+  }
+
 }

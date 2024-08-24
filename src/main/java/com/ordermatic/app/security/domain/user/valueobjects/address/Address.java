@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-@Builder(builderClassName = "anAddress", setterPrefix = "with")
+@Builder(builderMethodName = "anAddress", setterPrefix = "with")
 public class Address extends ValueObject {
   private String street;
   private Integer number;

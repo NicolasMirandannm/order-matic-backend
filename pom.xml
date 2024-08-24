@@ -11,8 +11,8 @@
 	<groupId>com</groupId>
 	<artifactId>ordermatic</artifactId>
 	<version>1.0.4</version>
-	<name>ordermatic</name>
-	<description>Demo project for Spring Boot</description>
+	<name>OrderMatic</name>
+	<description>The best delivery system ;)</description>
 	<url/>
 	<licenses>
 		<license/>
