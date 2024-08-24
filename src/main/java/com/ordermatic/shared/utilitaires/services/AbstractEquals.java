@@ -15,10 +15,9 @@ public abstract class AbstractEquals {
     this.idObject = this.getClass().getSimpleName();
   }
 
-  public abstract boolean equals(Object obj);
-
-  public boolean strictEquals(Object obj) {
-    if (!this.equals(obj)) {
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null || obj.getClass() != this.getClass()) {
       return false;
     }
 

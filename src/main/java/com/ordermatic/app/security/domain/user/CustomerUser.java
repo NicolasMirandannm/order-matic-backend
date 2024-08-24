@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -26,5 +27,9 @@ public class CustomerUser extends DefaultUserAggregate {
     this.addresses = addresses;
     this.mainAddress = mainAddress;
     this.cpf = cpf;
+  }
+
+  public Optional<Address> getMainAddress() {
+    return Optional.ofNullable(mainAddress);
   }
 }

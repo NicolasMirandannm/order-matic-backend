@@ -7,15 +7,14 @@ import com.ordermatic.app.security.domain.user.valueobjects.Phone;
 import com.ordermatic.app.security.domain.user.valueobjects.address.Address;
 import com.ordermatic.app.security.domain.user.valueobjects.address.Apartment;
 import com.ordermatic.app.security.domain.user.valueobjects.address.Condominium;
-import com.ordermatic.app.security.infra.database.entities.user.customer.AddressEntity;
-import com.ordermatic.app.security.infra.database.entities.user.customer.ApartmentEntity;
-import com.ordermatic.app.security.infra.database.entities.user.customer.CondominiumEntity;
-import com.ordermatic.app.security.infra.database.entities.user.customer.CustomerUserEntity;
+import com.ordermatic.app.security.infra.database.collections.user.customer.AddressDocument;
+import com.ordermatic.app.security.infra.database.collections.user.customer.ApartmentDocument;
+import com.ordermatic.app.security.infra.database.collections.user.customer.CondominiumDocument;
+import com.ordermatic.app.security.infra.database.collections.user.customer.CustomerUserCollection;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Component
@@ -36,19 +35,19 @@ public class CustomerMockFactory {
   private final static Condominium DEFAULT_CONDOMINIUM = new Condominium("Condominium", 100, null);
   private final static Apartment DEFAULT_APARTMENT = new Apartment("A", "1", "100", null);
 
-  public CustomerUserEntity createCustomerEntity(UUID id) {
-    return CustomerUserEntity.builder()
+  public CustomerUserCollection createCustomerEntity(UUID id) {
+    return CustomerUserCollection.builder()
       .id(id)
-      .cpf(DEFAULT_CPF)
-      .email(DEFAULT_EMAIL)
+      .cpf(new Cpf(DEFAULT_CPF).getValue())
+      .email(new Email(DEFAULT_EMAIL).getValue())
       .name(DEFAULT_NAME)
       .password(DEFAULT_PASSWORD)
-      .phone(DEFAULT_PHONE)
+      .phone(new Phone(DEFAULT_PHONE).getValue())
       .build();
   }
 
-  public AddressEntity createMainAddressEntity() {
-    return AddressEntity.builder()
+  public AddressDocument createMainAddressEntity() {
+    return AddressDocument.builder()
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
       .street(DEFAULT_STREET)
@@ -59,13 +58,8 @@ public class CustomerMockFactory {
       .build();
   }
 
-  public AddressEntity createAddressEntityWithCondominium() {
-    var a = CondominiumEntity.builder()
-      .name(DEFAULT_CONDOMINIUM.name())
-      .houseNumber(DEFAULT_CONDOMINIUM.houseNumber())
-      .build();
-
-    return AddressEntity.builder()
+  public AddressDocument createAddressEntityWithCondominium() {
+    return AddressDocument.builder()
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
       .street(DEFAULT_STREET)
@@ -73,15 +67,15 @@ public class CustomerMockFactory {
       .main(false)
       .cep(DEFAULT_CEP)
       .reference(DEFAULT_REFERENCE)
-      .condominium(CondominiumEntity.builder()
+      .condominium(CondominiumDocument.builder()
         .name(DEFAULT_CONDOMINIUM.name())
         .houseNumber(DEFAULT_CONDOMINIUM.houseNumber())
         .build())
       .build();
   }
 
-  public AddressEntity createAddressEntityWithApartment() {
-    return AddressEntity.builder()
+  public AddressDocument createAddressEntityWithApartment() {
+    return AddressDocument.builder()
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
       .street(DEFAULT_STREET)
@@ -89,7 +83,7 @@ public class CustomerMockFactory {
       .main(false)
       .cep(DEFAULT_CEP)
       .reference(DEFAULT_REFERENCE)
-      .apartment(ApartmentEntity.builder()
+      .apartment(ApartmentDocument.builder()
         .block(DEFAULT_APARTMENT.block())
         .floor(DEFAULT_APARTMENT.floor())
         .number(DEFAULT_APARTMENT.number())
@@ -133,5 +127,4 @@ public class CustomerMockFactory {
       .withMainAddress(mainAddress)
       .build();
   }
-
 }

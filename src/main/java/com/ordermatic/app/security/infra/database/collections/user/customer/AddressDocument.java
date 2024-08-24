@@ -11,7 +11,12 @@ public class AddressDocument {
   private String city;
   private String state;
   private String cep;
+  private Boolean main;
   private String reference;
   private CondominiumDocument condominium;
   private ApartmentDocument apartment;
+
+  public Boolean isMain() {
+    return main;
+  }
 }
