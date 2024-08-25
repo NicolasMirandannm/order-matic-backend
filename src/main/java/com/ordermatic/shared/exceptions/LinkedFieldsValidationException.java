@@ -5,8 +5,8 @@ import com.ordermatic.shared.utilitaires.services.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomLinkedFieldsException extends RuntimeException {
-  public CustomLinkedFieldsException(String message) {
+public class LinkedFieldsValidationException extends RuntimeException {
+  public LinkedFieldsValidationException(String message) {
     super(message);
   }
 
@@ -25,7 +25,7 @@ public class CustomLinkedFieldsException extends RuntimeException {
 
     public void ifAnyExceptionExistsThrow(String endMessage) {
       if (!this.messages.isEmpty()) {
-        throw new CustomLinkedFieldsException(String.join(", ", this.messages).concat(" ").concat(endMessage));
+        throw new LinkedFieldsValidationException(String.join(", ", this.messages).concat(" ").concat(endMessage));
       }
     }
 
