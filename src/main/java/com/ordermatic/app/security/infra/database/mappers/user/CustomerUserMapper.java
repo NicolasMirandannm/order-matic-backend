@@ -16,8 +16,6 @@ import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -44,7 +42,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
   @Override
   public CustomerUserCollection toPersistence(@NonNull CustomerUser domain) {
     var customerUser = CustomerUserCollection.builder()
-      .id(UUID.fromString(domain.getIdValue()))
+      .id(domain.getIdValue())
       .name(domain.getName())
       .password(domain.getPassword())
       .cpf(domain.getCpf().getValue())

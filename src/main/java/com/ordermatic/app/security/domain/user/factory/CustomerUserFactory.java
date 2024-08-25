@@ -1,16 +1,25 @@
 package com.ordermatic.app.security.domain.user.factory;
 
+import com.ordermatic.app.security.domain.bridge.PasswordEncryptionBridge;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
-import com.ordermatic.shared.exceptions.DomainException;
 import com.ordermatic.shared.exceptions.LinkedFieldsValidationException;
+import jakarta.validation.Valid;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerUserFactory {
+
+  private final PasswordEncryptionBridge passwordEncryptionBridge;
+
+  @Autowired
+  public CustomerUserFactory(PasswordEncryptionBridge passwordEncryptionBridge) {
+    this.passwordEncryptionBridge = passwordEncryptionBridge;
+  }
 
   public CustomerUser create(@NonNull CustomerUserFactoryParameter parameters) {
     validateCustomerUserParameters(parameters);
@@ -19,7 +28,7 @@ public class CustomerUserFactory {
       .withName(parameters.getUsername())
       .withEmail(new Email(parameters.getEmail()))
       .withPhone(new Phone(parameters.getPhoneNumber()))
-      .withPassword(parameters.getPassword())
+      .withPassword(passwordEncryptionBridge.encryptPassword(parameters.getPassword()))
       .build();
   }
 

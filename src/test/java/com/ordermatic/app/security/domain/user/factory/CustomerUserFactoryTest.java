@@ -52,10 +52,10 @@ public class CustomerUserFactoryTest extends SecurityModuleTest {
         assertNotNull(customerUserCreated.getPhone());
       }
 
-//      @Test // This test is commented out because the feature is not implemented yet in current branch
-//      void Then_customer_password_must_be_encrypted() {
-//        assertNotEquals(parameters.getPassword(), customerUserCreated.getPassword());
-//      }
+      @Test
+      void Then_customer_password_must_be_encrypted() {
+        assertNotEquals(parameters.getPassword(), customerUserCreated.getPassword());
+      }
     }
 
     @Nested
