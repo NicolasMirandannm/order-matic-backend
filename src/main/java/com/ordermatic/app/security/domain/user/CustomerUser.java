@@ -11,6 +11,8 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Objects.isNull;
+
 @Getter
 @Setter
 @SuperBuilder(builderMethodName = "aCustomerUser", setterPrefix = "with")
@@ -31,5 +33,9 @@ public class CustomerUser extends AbstractUserAggregate {
 
   public Optional<Address> getMainAddress() {
     return Optional.ofNullable(mainAddress);
+  }
+
+  public List<Address> getAddresses() {
+    return isNull(addresses) ? List.of() : addresses;
   }
 }

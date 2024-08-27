@@ -10,7 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
+import static java.util.Objects.isNull;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class CustomerUserCollection extends InfraEntity {
 
   @Id
-  private UUID id;
+  private String id;
 
   private String name;
 
@@ -39,4 +40,17 @@ public class CustomerUserCollection extends InfraEntity {
     this.addresses.add(address);
   }
 
+  public List<AddressDocument> getAddresses() {
+    return isNull(this.addresses) ? new ArrayList<>() : this.addresses;
+  }
+
+  @Override
+  public void setIdObject(String id) {
+    this.id = id;
+  }
+
+  @Override
+  public String getIdObject() {
+    return this.id;
+  }
 }

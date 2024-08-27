@@ -37,7 +37,7 @@ public class CustomerMockFactory {
 
   public CustomerUserCollection createCustomerEntity(UUID id) {
     return CustomerUserCollection.builder()
-      .id(id)
+      .id(id.toString())
       .cpf(new Cpf(DEFAULT_CPF).getValue())
       .email(new Email(DEFAULT_EMAIL).getValue())
       .name(DEFAULT_NAME)
