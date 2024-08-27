@@ -38,4 +38,16 @@ public class CustomerUser extends AbstractUserAggregate {
   public List<Address> getAddresses() {
     return isNull(addresses) ? List.of() : addresses;
   }
+
+  public String getCpfValue() {
+    return isNull(cpf) ? null : cpf.getValue();
+  }
+
+  public String getPhoneValue() {
+    return isNull(phone) ? null : phone.getValue();
+  }
+
+  public String getEmailValue() {
+    return isNull(email) ? null : email.getValue();
+  }
 }

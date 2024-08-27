@@ -3,15 +3,11 @@ package com.ordermatic.app.security.domain.user.factory;
 import com.ordermatic.app.security.SecurityModuleTest;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
-import com.ordermatic.shared.exceptions.DomainException;
 import com.ordermatic.shared.exceptions.LinkedFieldsValidationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 

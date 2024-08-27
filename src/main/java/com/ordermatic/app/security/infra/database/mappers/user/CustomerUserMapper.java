@@ -45,9 +45,9 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
       .id(domain.getIdValue())
       .name(domain.getName())
       .password(domain.getPassword())
-      .cpf(domain.getCpf().getValue())
-      .phone(domain.getPhone().getValue())
-      .email(domain.getEmail().getValue())
+      .cpf(domain.getCpfValue())
+      .phone(domain.getPhoneValue())
+      .email(domain.getEmailValue())
       .addresses(domain.getAddresses().stream().map(address -> mapAddressEntity(address, false)).toList())
       .build();
 
