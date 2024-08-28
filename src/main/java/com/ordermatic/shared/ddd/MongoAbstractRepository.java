@@ -32,6 +32,10 @@ public abstract class MongoAbstractRepository<Aggregate extends AggregateRoot, I
     mongoTemplate.remove(mapper.toPersistence(aggregateRoot));
   }
 
+  public void deleteAll() {
+    mongoTemplate.remove(getInfraClass()).all();
+  }
+
   private Class<Infra> getInfraClass() {
     return (Class<Infra>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
   }
