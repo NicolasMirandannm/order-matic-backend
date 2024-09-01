@@ -11,4 +11,5 @@ public class CustomerUserDto {
   private String password;
   private String email;
   private String phoneNumber;
+  private String cpf;
 }

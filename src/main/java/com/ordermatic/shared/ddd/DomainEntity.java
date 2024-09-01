@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 @Getter
 @SuperBuilder(setterPrefix = "with")
@@ -17,7 +19,7 @@ public abstract class DomainEntity extends AbstractEquals {
   }
 
   public String getIdValue() {
-    return id.getValue();
+    return isNull(id) ? null : id.getValue();
   }
 
   @Override

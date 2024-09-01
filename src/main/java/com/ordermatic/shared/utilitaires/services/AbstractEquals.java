@@ -1,5 +1,6 @@
 package com.ordermatic.shared.utilitaires.services;
 
+import jakarta.persistence.Transient;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,6 +10,8 @@ import java.util.Objects;
 @Slf4j
 @SuperBuilder
 public abstract class AbstractEquals {
+
+  @Transient
   private final String idObject;
 
   protected AbstractEquals() {

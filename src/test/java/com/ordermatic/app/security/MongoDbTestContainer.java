@@ -50,9 +50,4 @@ public class MongoDbTestContainer {
   static void setProperties(DynamicPropertyRegistry registry) {
     registry.add("mongodb.security.port", mongoDbContainer::getFirstMappedPort);
   }
-
-  @Test
-  void test_connection() {
-    System.out.println("MongoDB container is running: " + mongoDbContainer.getConnectionString());
-  }
 }
