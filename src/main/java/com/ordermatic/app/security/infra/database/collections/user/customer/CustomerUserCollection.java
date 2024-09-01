@@ -15,7 +15,7 @@ import static java.util.Objects.isNull;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = false)
 @Document(collection = "customer_user")
 public class CustomerUserCollection extends InfraEntity {
 
