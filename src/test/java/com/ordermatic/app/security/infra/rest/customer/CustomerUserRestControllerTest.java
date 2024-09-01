@@ -1,5 +1,6 @@
 package com.ordermatic.app.security.infra.rest.customer;
 
+import com.ordermatic.app.security.MongoDbTestContainer;
 import com.ordermatic.app.security.SecurityModuleTest;
 import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
@@ -13,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -81,11 +83,12 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
       @Test
       void then_customer_user_is_not_created() throws Exception {
         mockMvc.perform(post("/security/customer-user")
-          .contentType("application/json")
-          .content(objectMapper.writeValueAsString(CustomerUserDto.builder().build()))
-        ).andExpect(status().isBadRequest())
-          .andExpect(result -> result.getResponse().getContentAsString()
-            .contains("Username, Email, Password, Phone Number cannot be empty."));
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(CustomerUserDto.builder().build()))
+          ).andExpect(status().isBadRequest())
+          .andExpect(result -> assertTrue(result.getResponse().getContentAsString()
+            .contains("Username, Email, Password, Phone Number cannot be empty.")
+          ));
       }
     }
   }
