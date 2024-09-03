@@ -13,8 +13,13 @@ public class Address extends ValueObject {
   private Integer number;
   private String city;
   private String state;
+  private Boolean commercialAddress;
   private String cep;
   private String reference;
   private Condominium condominium;
   private Apartment apartment;
+
+  public boolean isCommercialAddress() {
+    return commercialAddress;
+  }
 }

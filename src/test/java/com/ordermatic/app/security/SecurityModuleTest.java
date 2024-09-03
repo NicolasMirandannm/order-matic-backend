@@ -10,6 +10,5 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ActiveProfiles("test")
 @Testcontainers
 @SpringBootTest
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan(basePackages = {"com.ordermatic.app.security"})
 public class SecurityModuleTest extends MongoDbTestContainer {}
