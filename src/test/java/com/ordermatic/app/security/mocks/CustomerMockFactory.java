@@ -70,7 +70,7 @@ public class CustomerMockFactory {
       .cep(DEFAULT_CEP)
       .reference(DEFAULT_REFERENCE)
       .condominium(CondominiumDocument.builder()
-        .name(DEFAULT_CONDOMINIUM.name())
+        .block(DEFAULT_CONDOMINIUM.block())
         .houseNumber(DEFAULT_CONDOMINIUM.houseNumber())
         .build())
       .build();

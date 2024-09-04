@@ -63,7 +63,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
 
     var condominiumEntity = isNull(condominium) ? null :
       CondominiumDocument.builder()
-        .name(condominium.name())
+        .block(condominium.block())
         .houseNumber(condominium.houseNumber())
         .observation(condominium.observation())
         .build();
@@ -95,7 +95,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
     var apartmentEntity = addressEntity.getApartment();
 
     var condominium = nonNull(condominiumEntity)
-      ? new Condominium(condominiumEntity.getName(), condominiumEntity.getHouseNumber(), condominiumEntity.getObservation())
+      ? new Condominium(condominiumEntity.getBlock(), condominiumEntity.getHouseNumber(), condominiumEntity.getObservation())
       : null;
 
     var apartment = nonNull(apartmentEntity)
