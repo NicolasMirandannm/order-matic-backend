@@ -19,7 +19,7 @@ public class CustomerAddressFactoryParameter {
   @Builder
   public static class Apartment {
     private String number;
-    private Integer block;
+    private String block;
     private String floor;
     private String observation;
   }

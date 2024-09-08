@@ -1,14 +1,12 @@
-package com.ordermatic.shared.exceptions;
+package com.ordermatic.shared.utilitaires.services;
 
-import com.ordermatic.shared.utilitaires.services.StringUtils;
+import com.ordermatic.shared.exceptions.RequiredFieldException;
+import com.ordermatic.shared.utilitaires.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LinkedFieldsValidationException extends RuntimeException {
-  public LinkedFieldsValidationException(String message) {
-    super(message);
-  }
+public class LinkedFieldsValidation {
 
   public static class LinkedFieldsList {
     private final List<String> messages;
@@ -23,13 +21,17 @@ public class LinkedFieldsValidationException extends RuntimeException {
       return this;
     }
 
-    public void ifAnyExceptionExistsThrow(String endMessage) {
-      if (!this.messages.isEmpty()) {
-        throw new LinkedFieldsValidationException(String.join(", ", this.messages).concat(" ").concat(endMessage));
-      }
+    public LinkedFieldsList ifNull(Object value, String label) {
+      if (value == null)
+        this.messages.add(label);
+      return this;
     }
 
-
+    public void ifAnyExceptionExistsThrow(String endMessage) {
+      if (!this.messages.isEmpty()) {
+        throw new RequiredFieldException(String.join(", ", this.messages).concat(" ").concat(endMessage));
+      }
+    }
   }
 
   public static LinkedFieldsList linkedValidation() {

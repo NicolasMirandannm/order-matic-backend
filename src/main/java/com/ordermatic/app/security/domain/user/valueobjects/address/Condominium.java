@@ -1,7 +1,7 @@
 package com.ordermatic.app.security.domain.user.valueobjects.address;
 
 import com.ordermatic.shared.exceptions.DomainException;
-import com.ordermatic.shared.utilitaires.services.NumberUtils;
+import com.ordermatic.shared.utilitaires.utils.NumberUtils;
 
 public record Condominium(String block, Integer houseNumber, String observation) {
   public Condominium {

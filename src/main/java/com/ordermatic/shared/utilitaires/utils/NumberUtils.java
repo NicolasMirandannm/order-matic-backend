@@ -1,4 +1,4 @@
-package com.ordermatic.shared.utilitaires.services;
+package com.ordermatic.shared.utilitaires.utils;
 
 import lombok.NonNull;
 
