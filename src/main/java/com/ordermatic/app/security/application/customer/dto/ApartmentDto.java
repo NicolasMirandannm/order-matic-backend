@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class ApartmentDto {
   private String number;
-  private Integer block;
+  private String block;
   private String floor;
   private String observation;
 }

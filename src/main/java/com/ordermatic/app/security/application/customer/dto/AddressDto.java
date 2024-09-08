@@ -13,6 +13,7 @@ public class AddressDto {
   private Boolean isCommercialAddress;
   private String cep;
   private String reference;
+  private Boolean isMain;
   private CondominiumDto condominium;
   private ApartmentDto apartment;
 }

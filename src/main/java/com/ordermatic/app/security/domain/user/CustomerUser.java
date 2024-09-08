@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,12 @@ public class CustomerUser extends AbstractUserAggregate {
     this.addresses = addresses;
     this.mainAddress = mainAddress;
     this.cpf = cpf;
+  }
+
+  //todo: verificar mapeamento de endereço principal
+  public void addNewAddress(Address newAddress, Boolean isMain) {
+    this.addresses = new ArrayList<>(getAddresses());
+    this.addresses.add(newAddress);
   }
 
   public Optional<Address> getMainAddress() {
