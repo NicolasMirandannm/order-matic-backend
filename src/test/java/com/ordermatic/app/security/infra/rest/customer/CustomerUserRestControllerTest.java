@@ -1,6 +1,5 @@
 package com.ordermatic.app.security.infra.rest.customer;
 
-import com.ordermatic.app.security.MongoDbTestContainer;
 import com.ordermatic.app.security.SecurityModuleTest;
 import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
@@ -46,7 +45,7 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
   }
 
   @Nested
-  class Given_a_customer_user_dto extends SecurityModuleTest {
+  class Given_a_customer_user_dto {
 
     private CustomerUserDto customerUserDto;
 
@@ -61,7 +60,7 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
     }
 
     @Nested
-    class When_create_customer_user_is_called extends SecurityModuleTest {
+    class When_create_customer_user_is_called {
 
       @Test
       void then_customer_user_is_created() throws Exception {
@@ -78,7 +77,7 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
     }
 
     @Nested
-    class When_create_with_empty_values extends SecurityModuleTest {
+    class When_create_with_empty_values {
 
       @Test
       void then_customer_user_is_not_created() throws Exception {

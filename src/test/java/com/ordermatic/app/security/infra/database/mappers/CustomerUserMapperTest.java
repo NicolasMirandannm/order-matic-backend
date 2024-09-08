@@ -1,7 +1,7 @@
 package com.ordermatic.app.security.infra.database.mappers;
 
 import com.ordermatic.app.security.domain.user.CustomerUser;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Address;
+import com.ordermatic.app.security.domain.user.entities.address.Address;
 import com.ordermatic.app.security.infra.database.collections.user.customer.AddressDocument;
 import com.ordermatic.app.security.infra.database.collections.user.customer.CustomerUserCollection;
 import com.ordermatic.app.security.infra.database.mappers.user.CustomerUserMapper;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Nested
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -34,12 +33,13 @@ public class CustomerUserMapperTest {
 
     @BeforeEach
     void setup() {
-      customerEntity = customerMockFactory.createCustomerEntity(UUID.randomUUID());
-      customerEntity.setAddresses(new ArrayList<>(List.of(customerMockFactory.createAddressEntityWithCondominium())));
+      var addressId = new UniqueIdentifier();
+      customerEntity = customerMockFactory.createCustomerEntity(new UniqueIdentifier().getValue());
+      customerEntity.setAddresses(new ArrayList<>(List.of(customerMockFactory.createAddressEntityWithCondominium(addressId.getValue()))));
 
       customerUser = customerMockFactory.createCustomerUser(
         new UniqueIdentifier(customerEntity.getId()),
-        new ArrayList<>(List.of(customerMockFactory.createAddress(true, false))),
+        new ArrayList<>(List.of(customerMockFactory.createAddress(addressId, true, false))),
         null
       );
     }
@@ -82,11 +82,13 @@ public class CustomerUserMapperTest {
 
       @BeforeEach
       void setup() {
-        mainAddress = customerMockFactory.createAddress(false, false);
-        mainAddressORM = customerMockFactory.createMainAddressEntity();
-
+        var addressId = new UniqueIdentifier();
+        mainAddress = customerMockFactory.createAddress(addressId, false, false);
         customerUser.setMainAddress(mainAddress);
-        customerEntity.setAddresses(new ArrayList<>(List.of(mainAddressORM, customerMockFactory.createAddressEntityWithCondominium())));
+
+        mainAddressORM = customerMockFactory.createMainAddressEntity(addressId.getValue());
+        var anotherAddressORM =  customerMockFactory.createAddressEntityWithCondominium(new UniqueIdentifier().getValue());
+        customerEntity.setAddresses(new ArrayList<>(List.of(mainAddressORM, anotherAddressORM)));
       }
 
       @Nested

@@ -14,12 +14,10 @@ import org.springframework.stereotype.Service;
 
 import static java.util.Objects.isNull;
 
-//todo: verificar necessidade de uma camada de factory parameters, me parece duplicação de codigo desnecessária que posso nos dtos
 @Service
 public class CustomerAddressCreationService {
 
   private final CustomerUserRepository customerUserRepository;
-
   private final CustomerAddressFactory customerAddressFactory;
 
   @Autowired
@@ -28,18 +26,18 @@ public class CustomerAddressCreationService {
     this.customerAddressFactory = customerAddressFactory;
   }
 
-  public void createByCustomerId(String id, AddressDto addressDto) {
-    var customerId = new UniqueIdentifier(id);
-    CustomerUser customer = customerUserRepository.findById(customerId)
-      .orElseThrow(() -> new UserNotFoundException(customerId));
+  public void execute(String customerId, AddressDto addressDto) {
+    var customerIdentifier = new UniqueIdentifier(customerId);
+    CustomerUser customer = customerUserRepository.findById(customerIdentifier)
+      .orElseThrow(() -> new UserNotFoundException(customerIdentifier));
 
-    var customerAddressFactoryParameters = getAddressParameters(addressDto);
+    var customerAddressFactoryParameters = mapAddressParameters(addressDto);
     var addressCreated = customerAddressFactory.create(customerAddressFactoryParameters);
     customer.addNewAddress(addressCreated, addressDto.getIsMain());
     customerUserRepository.save(customer);
   }
 
-  private CustomerAddressFactoryParameter getAddressParameters(AddressDto addressDto) {
+  private CustomerAddressFactoryParameter mapAddressParameters(AddressDto addressDto) {
     return CustomerAddressFactoryParameter.builder()
       .street(addressDto.getStreet())
       .number(addressDto.getNumber())
@@ -48,12 +46,12 @@ public class CustomerAddressCreationService {
       .isCommercialAddress(addressDto.getIsCommercialAddress())
       .cep(addressDto.getCep())
       .reference(addressDto.getReference())
-      .condominium(getCondominiumParameter(addressDto.getCondominium()))
-      .apartment(getApartmentParameter(addressDto.getApartment()))
+      .condominium(mapCondominiumParameter(addressDto.getCondominium()))
+      .apartment(mapApartmentParameter(addressDto.getApartment()))
       .build();
   }
 
-  private CustomerAddressFactoryParameter.Apartment getApartmentParameter(ApartmentDto apartmentDto) {
+  private CustomerAddressFactoryParameter.Apartment mapApartmentParameter(ApartmentDto apartmentDto) {
     if (isNull(apartmentDto)) return null;
     return CustomerAddressFactoryParameter.Apartment.builder()
       .number(apartmentDto.getNumber())
@@ -63,7 +61,7 @@ public class CustomerAddressCreationService {
       .build();
   }
 
-  private CustomerAddressFactoryParameter.Condominium getCondominiumParameter(CondominiumDto condominiumDto) {
+  private CustomerAddressFactoryParameter.Condominium mapCondominiumParameter(CondominiumDto condominiumDto) {
     if (isNull(condominiumDto)) return null;
     return CustomerAddressFactoryParameter.Condominium.builder()
       .block(condominiumDto.getBlock())

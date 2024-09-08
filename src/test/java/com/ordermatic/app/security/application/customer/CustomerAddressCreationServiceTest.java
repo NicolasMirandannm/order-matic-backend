@@ -6,18 +6,13 @@ import com.ordermatic.app.security.application.customer.services.CustomerAddress
 import com.ordermatic.app.security.domain.exceptions.UserNotFoundException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
+import com.ordermatic.app.security.domain.user.entities.address.Address;
 import com.ordermatic.app.security.mocks.CustomerMockFactory;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-//deve criar um endereço para um cliente existe -- feito
-//deve lançar exceção ao tentar criar um endereço para um cliente inexistente -- feito
-
-//quando o cliente não possuir nenhum outro endereço, o mesmo deve ser criado como principal
-//quando o cliente possuir outros endereços, e o novo estiver marcado como principal, o antigo principal deve ser desmarcado
 
 @Nested
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -56,7 +51,6 @@ public class CustomerAddressCreationServiceTest extends SecurityModuleTest {
         .cep("12345678")
         .reference("fools reference")
         .build();
-
     }
 
     @Nested
@@ -69,7 +63,7 @@ public class CustomerAddressCreationServiceTest extends SecurityModuleTest {
         customerUserRepository.save(customer);
         String customerId = customer.getIdValue();
 
-        customerAddressCreationService.createByCustomerId(customerId, addressDto);
+        customerAddressCreationService.execute(customerId, addressDto);
         customer = customerUserRepository.findById(customer.getId()).orElse(null);
       }
 
@@ -88,12 +82,60 @@ public class CustomerAddressCreationServiceTest extends SecurityModuleTest {
       void setup() {
         invalidCustomerId = new UniqueIdentifier().getValue();
         exception = assertThrows(UserNotFoundException.class, () ->
-          customerAddressCreationService.createByCustomerId(invalidCustomerId, addressDto));
+          customerAddressCreationService.execute(invalidCustomerId, addressDto));
       }
 
       @Test
       void Then_should_throw_a_UserNotFoundException() {
         assertEquals("User not found with id: ".concat(invalidCustomerId).concat("."), exception.getMessage());
+      }
+    }
+  }
+
+  @Nested
+  class Given_a_customer_with_another_address {
+    private CustomerUser customer;
+    private Address anotherAddress;
+
+    @BeforeEach
+    void setup() {
+      customer = customerMockFactory.createCustomerUser(new UniqueIdentifier());
+      anotherAddress = customerMockFactory.createAddress(new UniqueIdentifier(), true, false);
+      customer.addNewAddress(anotherAddress, true);
+      customerUserRepository.save(customer);
+    }
+
+    @Nested
+    class When_the_new_address_is_marked_as_main {
+      private AddressDto addressDto;
+
+      @BeforeEach
+      void setup() {
+        addressDto = customerMockFactory.createAddressDto();
+        addressDto.setIsMain(true);
+      }
+
+      @Nested
+      class When_create {
+        private Address newMainAddress;
+
+        @BeforeEach
+        void setup() {
+          customerAddressCreationService.execute(customer.getIdValue(), addressDto);
+          customer = customerUserRepository.findById(customer.getId()).orElseThrow();
+          newMainAddress = customer.getMainAddress().orElse(null);
+        }
+
+        @Test
+        void Then_customer_should_have_only_one_old_address_in_addresses_list() {
+          assertEquals(1, customer.getAddresses().size());
+          assertTrue(customer.getAddresses().contains(anotherAddress));
+        }
+
+        @Test
+        void Then_customer_main_address_should_be_the_new_address() {
+          assertNotEquals(anotherAddress, newMainAddress);
+        }
       }
     }
   }

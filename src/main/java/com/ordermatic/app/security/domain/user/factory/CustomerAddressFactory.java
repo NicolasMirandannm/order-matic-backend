@@ -1,10 +1,11 @@
 package com.ordermatic.app.security.domain.user.factory;
 
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerAddressFactoryParameter;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Address;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Apartment;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Condominium;
+import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
+import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
 import com.ordermatic.shared.utilitaires.services.LinkedFieldsValidation;
+import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ public class CustomerAddressFactory {
 
     var isCommercialAddress = customerAddressFactoryParameter.getIsCommercialAddress();
     return Address.anAddress()
+      .withId(new UniqueIdentifier())
       .withCep(customerAddressFactoryParameter.getCep())
       .withStreet(customerAddressFactoryParameter.getStreet())
       .withNumber(customerAddressFactoryParameter.getNumber())

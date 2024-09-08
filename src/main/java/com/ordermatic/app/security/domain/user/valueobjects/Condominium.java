@@ -1,4 +1,4 @@
-package com.ordermatic.app.security.domain.user.valueobjects.address;
+package com.ordermatic.app.security.domain.user.valueobjects;
 
 import com.ordermatic.shared.exceptions.DomainException;
 import com.ordermatic.shared.utilitaires.utils.NumberUtils;

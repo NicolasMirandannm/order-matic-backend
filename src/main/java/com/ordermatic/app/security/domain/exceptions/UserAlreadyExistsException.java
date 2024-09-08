@@ -2,7 +2,7 @@ package com.ordermatic.app.security.domain.exceptions;
 
 import com.ordermatic.app.security.domain.user.enums.UserType;
 
-public class UserAlreadyExistsException extends RuntimeException {
+public class UserAlreadyExistsException extends DomainSecurityModuleException {
   public UserAlreadyExistsException(String message) {
     super(message);
   }

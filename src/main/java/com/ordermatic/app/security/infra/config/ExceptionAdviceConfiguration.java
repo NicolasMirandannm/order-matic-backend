@@ -1,5 +1,8 @@
 package com.ordermatic.app.security.infra.config;
 
+import com.ordermatic.app.security.domain.exceptions.DomainSecurityModuleException;
+import com.ordermatic.app.security.domain.exceptions.UserAlreadyExistsException;
+import com.ordermatic.shared.exceptions.ExceptionRestDetails;
 import com.ordermatic.shared.exceptions.RequiredFieldException;
 import com.ordermatic.shared.utilitaires.services.LinkedFieldsValidation;
 import org.springframework.http.HttpStatus;
@@ -15,14 +18,24 @@ import java.util.Map;
 public class ExceptionAdviceConfiguration {
 
   @ExceptionHandler(RequiredFieldException.class)
-  public ResponseEntity<Map<String, Object>> handleLinkedFieldsValidationException(RequiredFieldException ex) {
-    Map<String, Object> errorDetails = new HashMap<>();
-    errorDetails.put("timestamp", OffsetDateTime.now());
-    errorDetails.put("status", HttpStatus.BAD_REQUEST.value());
-    errorDetails.put("error", "Bad Request");
-    errorDetails.put("message", ex.getMessage());
-    errorDetails.put("module", "/api/security");
+  public ResponseEntity<Map<String, Object>> handleRequiredFieldException(RequiredFieldException ex) {
+    ExceptionRestDetails exceptionRestDetails = new ExceptionRestDetails(
+      HttpStatus.BAD_REQUEST,
+      ex.getMessage(),
+      "api/security/domain"
+    );
 
-    return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(exceptionRestDetails.getErrorDetails(), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(DomainSecurityModuleException.class)
+  public ResponseEntity<Map<String, Object>> handleSecurityDomainException(DomainSecurityModuleException ex) {
+    ExceptionRestDetails exceptionRestDetails = new ExceptionRestDetails(
+      HttpStatus.BAD_REQUEST,
+      ex.getMessage(),
+      "api/security/domain"
+    );
+
+    return new ResponseEntity<>(exceptionRestDetails.getErrorDetails(), HttpStatus.BAD_REQUEST);
   }
 }

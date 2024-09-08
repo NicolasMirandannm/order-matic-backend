@@ -1,7 +1,7 @@
 package com.ordermatic.app.security.domain.user.factory;
 
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerAddressFactoryParameter;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Address;
+import com.ordermatic.app.security.domain.user.entities.address.Address;
 import com.ordermatic.shared.exceptions.RequiredFieldException;
 import org.junit.jupiter.api.*;
 
@@ -47,6 +47,7 @@ public class CustomerAddressFactoryTest {
       @Test
       void Then_address_should_be_created() {
         assertNotNull(customerAddress);
+        assertNotNull(customerAddress.getId());
         assertEquals(customerAddress.getCep(), customerAddressFactoryParameter.getCep());
         assertEquals(customerAddress.getStreet(), customerAddressFactoryParameter.getStreet());
         assertEquals(customerAddress.getNumber(), customerAddressFactoryParameter.getNumber());
