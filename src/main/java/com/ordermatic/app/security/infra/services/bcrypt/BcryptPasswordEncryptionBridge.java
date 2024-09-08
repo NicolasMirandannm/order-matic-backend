@@ -4,8 +4,9 @@ import com.ordermatic.app.security.domain.bridge.PasswordEncryptionBridge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class BcryptPasswordEncryptionBridge implements PasswordEncryptionBridge {
 
   private final PasswordEncoder passwordEncoder;

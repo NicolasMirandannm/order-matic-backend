@@ -2,6 +2,7 @@ package com.ordermatic.app.security.application.customer;
 
 import com.ordermatic.app.security.application.customer.dto.AddressDto;
 import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
+import com.ordermatic.app.security.application.customer.dto.TokenDto;
 import com.ordermatic.app.security.application.customer.services.CustomerAddressCreationService;
 import com.ordermatic.app.security.application.customer.services.CustomerUserCreationService;
 import com.ordermatic.app.security.application.facades.CustomerUserFacade;
@@ -21,8 +22,8 @@ public class CustomerUserFacadeImpl implements CustomerUserFacade {
   }
 
   @Override
-  public void createCustomerUser(CustomerUserDto customerUser) {
-    customerUserCreationService.execute(customerUser);
+  public TokenDto createCustomerUser(CustomerUserDto customerUser) {
+    return customerUserCreationService.execute(customerUser);
   }
 
   @Override

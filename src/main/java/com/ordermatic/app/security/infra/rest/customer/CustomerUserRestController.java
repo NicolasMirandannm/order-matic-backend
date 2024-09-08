@@ -3,6 +3,7 @@ package com.ordermatic.app.security.infra.rest.customer;
 
 import com.ordermatic.app.security.application.customer.dto.AddressDto;
 import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
+import com.ordermatic.app.security.application.customer.dto.TokenDto;
 import com.ordermatic.app.security.application.facades.CustomerUserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,9 @@ public class CustomerUserRestController {
   }
 
   @PostMapping
-  public ResponseEntity<?> createCustomerUser(@RequestBody CustomerUserDto customerUser) {
-    customerUserFacade.createCustomerUser(customerUser);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
+  public ResponseEntity<TokenDto> createCustomerUser(@RequestBody CustomerUserDto customerUser) {
+    TokenDto tokenDto = customerUserFacade.createCustomerUser(customerUser);
+    return ResponseEntity.status(HttpStatus.CREATED).body(tokenDto);
   }
 
   @PostMapping("/{customerId}/address")
