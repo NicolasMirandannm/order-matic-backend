@@ -2,12 +2,14 @@ package com.ordermatic.app.security.domain.user;
 
 import com.ordermatic.app.security.domain.user.valueobjects.Cpf;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Address;
+import com.ordermatic.app.security.domain.user.entities.address.Address;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,18 @@ public class CustomerUser extends AbstractUserAggregate {
     this.addresses = addresses;
     this.mainAddress = mainAddress;
     this.cpf = cpf;
+  }
+
+  public void addNewAddress(@NonNull Address newAddress, Boolean isMain) {
+    this.addresses = new ArrayList<>(getAddresses());
+    if (isMain) {
+      if (this.mainAddress != null) {
+        addresses.add(this.mainAddress);
+      }
+      this.mainAddress = newAddress;
+      return;
+    }
+    this.addresses.add(newAddress);
   }
 
   public Optional<Address> getMainAddress() {

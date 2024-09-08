@@ -3,7 +3,8 @@ package com.ordermatic.app.security.domain.user.factory;
 import com.ordermatic.app.security.SecurityModuleTest;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
-import com.ordermatic.shared.exceptions.LinkedFieldsValidationException;
+import com.ordermatic.shared.exceptions.RequiredFieldException;
+import com.ordermatic.shared.utilitaires.services.LinkedFieldsValidation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -56,12 +57,12 @@ public class CustomerUserFactoryTest extends SecurityModuleTest {
 
     @Nested
     class When_create_with_any_null_parameter {
-      private Exception exception;
+      private RequiredFieldException exception;
 
       @BeforeEach
       void setup() {
         var emptyParameters = CustomerUserFactoryParameter.builder().build();
-        exception = assertThrows(LinkedFieldsValidationException.class, () -> customerUserFactory.create(emptyParameters));
+        exception = assertThrows(RequiredFieldException.class, () -> customerUserFactory.create(emptyParameters));
       }
       @Test
       void Then_throw_exception() {

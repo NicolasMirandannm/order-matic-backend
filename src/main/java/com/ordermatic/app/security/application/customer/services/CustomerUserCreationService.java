@@ -1,9 +1,10 @@
 package com.ordermatic.app.security.application.customer.services;
 
 import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
-import com.ordermatic.app.security.domain.exceptions.CustomerUserAlreadyExists;
+import com.ordermatic.app.security.domain.exceptions.UserAlreadyExistsException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
+import com.ordermatic.app.security.domain.user.enums.UserType;
 import com.ordermatic.app.security.domain.user.factory.CustomerUserFactory;
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
 import lombok.NonNull;
@@ -33,8 +34,9 @@ public class CustomerUserCreationService {
     CustomerUser customerUserCreated = customerUserFactory.create(customerUserFactoryParameter);
 
     if (customerUserRepository.findByEmailAndPhone(customerUserCreated.getEmail(), customerUserCreated.getPhone()).isPresent()) {
-      throw new CustomerUserAlreadyExists();
+      throw new UserAlreadyExistsException(UserType.CUSTOMER);
     }
+
     customerUserRepository.save(customerUserFactory.create(customerUserFactoryParameter));
   }
 }

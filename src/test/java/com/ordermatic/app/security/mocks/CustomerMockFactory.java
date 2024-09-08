@@ -1,12 +1,13 @@
 package com.ordermatic.app.security.mocks;
 
+import com.ordermatic.app.security.application.customer.dto.AddressDto;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Cpf;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Address;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Apartment;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Condominium;
+import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
+import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
 import com.ordermatic.app.security.infra.database.collections.user.customer.AddressDocument;
 import com.ordermatic.app.security.infra.database.collections.user.customer.ApartmentDocument;
 import com.ordermatic.app.security.infra.database.collections.user.customer.CondominiumDocument;
@@ -35,9 +36,9 @@ public class CustomerMockFactory {
   private final static Condominium DEFAULT_CONDOMINIUM = new Condominium("Condominium", 100, null);
   private final static Apartment DEFAULT_APARTMENT = new Apartment("A", "1", "100", null);
 
-  public CustomerUserCollection createCustomerEntity(UUID id) {
+  public CustomerUserCollection createCustomerEntity(String id) {
     return CustomerUserCollection.builder()
-      .id(id.toString())
+      .id(id)
       .cpf(new Cpf(DEFAULT_CPF).getValue())
       .email(new Email(DEFAULT_EMAIL).getValue())
       .name(DEFAULT_NAME)
@@ -46,8 +47,9 @@ public class CustomerMockFactory {
       .build();
   }
 
-  public AddressDocument createMainAddressEntity() {
+  public AddressDocument createMainAddressEntity(String id) {
     return AddressDocument.builder()
+      .id(id)
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
       .street(DEFAULT_STREET)
@@ -59,8 +61,9 @@ public class CustomerMockFactory {
       .build();
   }
 
-  public AddressDocument createAddressEntityWithCondominium() {
+  public AddressDocument createAddressEntityWithCondominium(String id) {
     return AddressDocument.builder()
+      .id(id)
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
       .street(DEFAULT_STREET)
@@ -70,14 +73,15 @@ public class CustomerMockFactory {
       .cep(DEFAULT_CEP)
       .reference(DEFAULT_REFERENCE)
       .condominium(CondominiumDocument.builder()
-        .name(DEFAULT_CONDOMINIUM.name())
+        .block(DEFAULT_CONDOMINIUM.block())
         .houseNumber(DEFAULT_CONDOMINIUM.houseNumber())
         .build())
       .build();
   }
 
-  public AddressDocument createAddressEntityWithApartment() {
+  public AddressDocument createAddressEntityWithApartment(String id) {
     return AddressDocument.builder()
+      .id(id)
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
       .street(DEFAULT_STREET)
@@ -94,8 +98,9 @@ public class CustomerMockFactory {
       .build();
   }
 
-  public Address createAddress(boolean withCondominium, boolean withApartment) {
+  public Address createAddress(UniqueIdentifier id, boolean withCondominium, boolean withApartment) {
     return Address.anAddress()
+      .withId(id)
       .withCity(DEFAULT_CITY)
       .withState(DEFAULT_STATE)
       .withStreet(DEFAULT_STREET)
@@ -129,6 +134,18 @@ public class CustomerMockFactory {
       .withPhone(new Phone(DEFAULT_PHONE))
       .withAddresses(address)
       .withMainAddress(mainAddress)
+      .build();
+  }
+
+  public AddressDto createAddressDto() {
+    return AddressDto.builder()
+      .street(DEFAULT_STREET)
+      .number(DEFAULT_NUMBER)
+      .city(DEFAULT_CITY)
+      .state(DEFAULT_STATE)
+      .isCommercialAddress(false)
+      .cep(DEFAULT_CEP)
+      .reference(DEFAULT_REFERENCE)
       .build();
   }
 }

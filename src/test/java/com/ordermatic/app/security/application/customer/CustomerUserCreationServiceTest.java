@@ -3,7 +3,7 @@ package com.ordermatic.app.security.application.customer;
 import com.ordermatic.app.security.SecurityModuleTest;
 import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
 import com.ordermatic.app.security.application.customer.services.CustomerUserCreationService;
-import com.ordermatic.app.security.domain.exceptions.CustomerUserAlreadyExists;
+import com.ordermatic.app.security.domain.exceptions.UserAlreadyExistsException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
@@ -76,11 +76,11 @@ public class CustomerUserCreationServiceTest extends SecurityModuleTest {
 
       @Nested
       class When_create extends SecurityModuleTest {
-        private CustomerUserAlreadyExists exception;
+        private UserAlreadyExistsException exception;
 
         @BeforeEach
         void setup() {
-          exception = assertThrows(CustomerUserAlreadyExists.class, () -> {
+          exception = assertThrows(UserAlreadyExistsException.class, () -> {
             customerUserCreationService.execute(customerUserDto);
           });
         }

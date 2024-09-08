@@ -1,4 +1,4 @@
-package com.ordermatic.app.security.infra.bcrypt;
+package com.ordermatic.app.security.infra.services.bcrypt;
 
 import com.ordermatic.app.security.domain.bridge.PasswordEncryptionBridge;
 import org.springframework.beans.factory.annotation.Autowired;

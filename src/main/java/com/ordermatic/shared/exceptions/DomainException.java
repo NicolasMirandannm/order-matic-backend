@@ -1,6 +1,6 @@
 package com.ordermatic.shared.exceptions;
 
-import com.ordermatic.shared.utilitaires.services.StringUtils;
+import com.ordermatic.shared.utilitaires.utils.StringUtils;
 
 public class DomainException extends RuntimeException {
 

@@ -1,6 +1,7 @@
 package com.ordermatic.app.security.infra.bcrypt;
 
 import com.ordermatic.app.security.SecurityModuleTest;
+import com.ordermatic.app.security.infra.services.bcrypt.BcryptPasswordEncryptionBridge;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 

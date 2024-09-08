@@ -1,14 +1,17 @@
-package com.ordermatic.app.security.domain.user.valueobjects.address;
+package com.ordermatic.app.security.domain.user.entities.address;
 
+import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
+import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
+import com.ordermatic.shared.ddd.DomainEntity;
 import com.ordermatic.shared.ddd.ValueObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
-@AllArgsConstructor
-@Builder(builderMethodName = "anAddress", setterPrefix = "with")
-public class Address extends ValueObject {
+@SuperBuilder(builderMethodName = "anAddress", setterPrefix = "with")
+public class Address extends DomainEntity {
   private String street;
   private Integer number;
   private String city;

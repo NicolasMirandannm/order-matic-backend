@@ -4,9 +4,9 @@ import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Cpf;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Address;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Apartment;
-import com.ordermatic.app.security.domain.user.valueobjects.address.Condominium;
+import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
+import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
 import com.ordermatic.app.security.infra.database.collections.user.customer.AddressDocument;
 import com.ordermatic.app.security.infra.database.collections.user.customer.ApartmentDocument;
 import com.ordermatic.app.security.infra.database.collections.user.customer.CondominiumDocument;
@@ -63,7 +63,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
 
     var condominiumEntity = isNull(condominium) ? null :
       CondominiumDocument.builder()
-        .name(condominium.name())
+        .block(condominium.block())
         .houseNumber(condominium.houseNumber())
         .observation(condominium.observation())
         .build();
@@ -77,6 +77,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
         .build();
 
     return AddressDocument.builder()
+      .id(address.getIdValue())
       .city(address.getCity())
       .state(address.getState())
       .street(address.getStreet())
@@ -95,7 +96,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
     var apartmentEntity = addressEntity.getApartment();
 
     var condominium = nonNull(condominiumEntity)
-      ? new Condominium(condominiumEntity.getName(), condominiumEntity.getHouseNumber(), condominiumEntity.getObservation())
+      ? new Condominium(condominiumEntity.getBlock(), condominiumEntity.getHouseNumber(), condominiumEntity.getObservation())
       : null;
 
     var apartment = nonNull(apartmentEntity)
@@ -103,6 +104,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
       : null;
 
     return Address.anAddress()
+      .withId(new UniqueIdentifier(addressEntity.getId()))
       .withCity(addressEntity.getCity())
       .withState(addressEntity.getState())
       .withStreet(addressEntity.getStreet())

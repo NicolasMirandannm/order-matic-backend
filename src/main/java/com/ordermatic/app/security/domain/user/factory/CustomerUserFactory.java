@@ -5,7 +5,7 @@ import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
-import com.ordermatic.shared.exceptions.LinkedFieldsValidationException;
+import com.ordermatic.shared.utilitaires.services.LinkedFieldsValidation;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class CustomerUserFactory {
   }
 
   private void validateCustomerUserParameters(CustomerUserFactoryParameter parameters) {
-    LinkedFieldsValidationException.linkedValidation()
+    LinkedFieldsValidation.linkedValidation()
       .ifEmpty(parameters.getUsername(), "Username")
       .ifEmpty(parameters.getEmail(), "Email")
       .ifEmpty(parameters.getPassword(), "Password")
