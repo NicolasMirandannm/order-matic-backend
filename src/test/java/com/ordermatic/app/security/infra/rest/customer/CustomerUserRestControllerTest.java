@@ -7,6 +7,7 @@ import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
+import com.ordermatic.app.security.infra.services.jwt.JwtTokenBridgeImpl;
 import com.ordermatic.app.security.mocks.CustomerMockFactory;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import org.junit.jupiter.api.*;
@@ -32,11 +33,14 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
   @Autowired
   private MockMvc mockMvc;
 
-  private ObjectMapper objectMapper;
-  private CustomerMockFactory customerMockFactory;
-
   @Autowired
   private CustomerUserRepository customerUserRepository;
+
+  @Autowired
+  private JwtTokenBridgeImpl jwtService;
+
+  private ObjectMapper objectMapper;
+  private CustomerMockFactory customerMockFactory;
 
   @BeforeEach
   void setup() {
@@ -100,6 +104,7 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
   @Nested
   class Given_an_address_dto {
     private AddressDto addressDto;
+    private String token;
 
     @BeforeEach
     void setup() {
@@ -114,13 +119,16 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
       void setup() {
         customerUser = customerMockFactory.createCustomerUser(new UniqueIdentifier());
         customerUserRepository.save(customerUser);
+        token = jwtService.generateCustomerJwtToken(customerUser);
       }
 
       @Nested
       class When_create_address {
+
         @Test
         void then_address_is_created() throws Exception {
           mockMvc.perform(post("/security/customer-user/" + customerUser.getIdValue() + "/address")
+            .header("Authorization", "Bearer " + token)
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(addressDto))
           ).andExpect(status().isCreated());
@@ -136,15 +144,22 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
     class When_customer_does_not_exist {
       @Nested
       class When_create_address {
+
+        @BeforeEach
+        void setup() {
+          token = jwtService.generateCustomerJwtToken(customerMockFactory.createCustomerUser(new UniqueIdentifier()));
+        }
+
         @Test
         void then_address_is_created() throws Exception {
           var invalidCustomerId = new UniqueIdentifier().getValue();
           mockMvc.perform(post("/security/customer-user/" + invalidCustomerId + "/address")
+            .header("Authorization", "Bearer " + token)
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(addressDto))
           ).andExpect(status().isBadRequest())
             .andExpect(result -> assertTrue(result.getResponse().getContentAsString()
-              .contains("Customer user not found with id: " + invalidCustomerId))
+              .contains("User not found with id: " + invalidCustomerId))
             );
         }
       }

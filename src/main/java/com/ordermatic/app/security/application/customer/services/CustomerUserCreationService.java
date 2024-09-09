@@ -1,6 +1,8 @@
 package com.ordermatic.app.security.application.customer.services;
 
 import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
+import com.ordermatic.app.security.application.customer.dto.TokenDto;
+import com.ordermatic.app.security.domain.bridge.JwtTokenBridge;
 import com.ordermatic.app.security.domain.exceptions.UserAlreadyExistsException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
@@ -16,14 +18,16 @@ public class CustomerUserCreationService {
 
   private final CustomerUserRepository customerUserRepository;
   private final CustomerUserFactory customerUserFactory;
+  private final JwtTokenBridge jwtTokenBridge;
 
   @Autowired
-  public CustomerUserCreationService(CustomerUserRepository customerUserRepository, CustomerUserFactory customerUserFactory) {
+  public CustomerUserCreationService(CustomerUserRepository customerUserRepository, CustomerUserFactory customerUserFactory, JwtTokenBridge jwtTokenBridge) {
     this.customerUserRepository = customerUserRepository;
     this.customerUserFactory = customerUserFactory;
+    this.jwtTokenBridge = jwtTokenBridge;
   }
 
-  public void execute(@NonNull CustomerUserDto customerUserDto) {
+  public TokenDto execute(@NonNull CustomerUserDto customerUserDto) {
     CustomerUserFactoryParameter customerUserFactoryParameter = CustomerUserFactoryParameter.builder()
       .username(customerUserDto.getUsername())
       .password(customerUserDto.getPassword())
@@ -38,5 +42,6 @@ public class CustomerUserCreationService {
     }
 
     customerUserRepository.save(customerUserFactory.create(customerUserFactoryParameter));
+    return new TokenDto(jwtTokenBridge.generateCustomerJwtToken(customerUserCreated));
   }
 }
