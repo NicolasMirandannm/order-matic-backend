@@ -127,7 +127,7 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
 
         @Test
         void then_address_is_created() throws Exception {
-          mockMvc.perform(post("/security/customer-user/" + customerUser.getIdValue() + "/address")
+          mockMvc.perform(post("/security/customer-user/address")
             .header("Authorization", "Bearer " + token)
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(addressDto))
@@ -147,13 +147,14 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
 
         @BeforeEach
         void setup() {
-          token = jwtService.generateCustomerJwtToken(customerMockFactory.createCustomerUser(new UniqueIdentifier()));
+          var invalidCustomerUser = customerMockFactory.createCustomerUser(new UniqueIdentifier());
+          token = jwtService.generateCustomerJwtToken(invalidCustomerUser);
         }
 
         @Test
         void then_address_is_created() throws Exception {
           var invalidCustomerId = new UniqueIdentifier().getValue();
-          mockMvc.perform(post("/security/customer-user/" + invalidCustomerId + "/address")
+          mockMvc.perform(post("/security/customer-user/address")
             .header("Authorization", "Bearer " + token)
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(addressDto))
