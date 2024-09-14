@@ -8,6 +8,7 @@ import lombok.Data;
 public class AddressDto {
   private String street;
   private Integer number;
+  private String neighborhood; //todo adicionar campo de bairro no restante do sistema
   private String city;
   private String state;
   private Boolean isCommercialAddress;
