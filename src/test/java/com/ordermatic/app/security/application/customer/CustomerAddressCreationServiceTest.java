@@ -6,7 +6,7 @@ import com.ordermatic.app.security.application.customer.services.CustomerAddress
 import com.ordermatic.app.security.domain.exceptions.UserNotFoundException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
-import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.app.security.mocks.CustomerMockFactory;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import org.junit.jupiter.api.*;
@@ -45,6 +45,7 @@ public class CustomerAddressCreationServiceTest extends SecurityModuleTest {
       addressDto = AddressDto.builder()
         .street("fools street")
         .number(123)
+        .neighborhood("fools neighborhood")
         .city("fools city")
         .state("fools state")
         .isCommercialAddress(false)

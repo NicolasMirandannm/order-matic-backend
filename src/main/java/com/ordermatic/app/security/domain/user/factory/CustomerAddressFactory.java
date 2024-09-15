@@ -1,7 +1,7 @@
 package com.ordermatic.app.security.domain.user.factory;
 
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerAddressFactoryParameter;
-import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
 import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
 import com.ordermatic.shared.utilitaires.services.LinkedFieldsValidation;
@@ -21,6 +21,7 @@ public class CustomerAddressFactory {
       .withId(new UniqueIdentifier())
       .withCep(customerAddressFactoryParameter.getCep())
       .withStreet(customerAddressFactoryParameter.getStreet())
+      .withNeighborhood(customerAddressFactoryParameter.getNeighborhood())
       .withNumber(customerAddressFactoryParameter.getNumber())
       .withCity(customerAddressFactoryParameter.getCity())
       .withState(customerAddressFactoryParameter.getState())
@@ -35,6 +36,7 @@ public class CustomerAddressFactory {
     LinkedFieldsValidation.linkedValidation()
       .ifEmpty(customerAddressFactoryParameter.getCep(), "CEP")
       .ifEmpty(customerAddressFactoryParameter.getStreet(), "Street")
+      .ifEmpty(customerAddressFactoryParameter.getNeighborhood(), "Neighborhood")
       .ifNull(customerAddressFactoryParameter.getNumber(), "Number")
       .ifEmpty(customerAddressFactoryParameter.getCity(), "City")
       .ifEmpty(customerAddressFactoryParameter.getState(), "State")

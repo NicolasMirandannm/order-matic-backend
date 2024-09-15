@@ -1,7 +1,7 @@
 package com.ordermatic.app.security.infra.database.mappers;
 
 import com.ordermatic.app.security.domain.user.CustomerUser;
-import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.app.security.infra.database.collections.user.customer.AddressDocument;
 import com.ordermatic.app.security.infra.database.collections.user.customer.CustomerUserCollection;
 import com.ordermatic.app.security.infra.database.mappers.user.CustomerUserMapper;

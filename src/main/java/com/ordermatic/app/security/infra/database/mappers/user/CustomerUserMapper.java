@@ -4,7 +4,7 @@ import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Cpf;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
-import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
 import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
 import com.ordermatic.app.security.infra.database.collections.user.customer.AddressDocument;
@@ -80,6 +80,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
       .id(address.getIdValue())
       .city(address.getCity())
       .state(address.getState())
+      .neighborhood(address.getNeighborhood())
       .street(address.getStreet())
       .number(address.getNumber())
       .cep(address.getCep())
@@ -108,6 +109,7 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
       .withCity(addressEntity.getCity())
       .withState(addressEntity.getState())
       .withStreet(addressEntity.getStreet())
+      .withNeighborhood(addressEntity.getNeighborhood())
       .withNumber(addressEntity.getNumber())
       .withCep(addressEntity.getCep())
       .withCommercialAddress(addressEntity.getCommercial())

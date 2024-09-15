@@ -41,6 +41,7 @@ public class CustomerAddressCreationService {
     return CustomerAddressFactoryParameter.builder()
       .street(addressDto.getStreet())
       .number(addressDto.getNumber())
+      .neighborhood(addressDto.getNeighborhood())
       .city(addressDto.getCity())
       .state(addressDto.getState())
       .isCommercialAddress(addressDto.getIsCommercialAddress())

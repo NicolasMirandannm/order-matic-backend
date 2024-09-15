@@ -2,7 +2,7 @@ package com.ordermatic.app.security.domain.user;
 
 import com.ordermatic.app.security.domain.user.valueobjects.Cpf;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
-import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import lombok.Getter;
 import lombok.NonNull;
