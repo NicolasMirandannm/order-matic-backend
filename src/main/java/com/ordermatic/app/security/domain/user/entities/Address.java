@@ -1,4 +1,4 @@
-package com.ordermatic.app.security.domain.user.entities.address;
+package com.ordermatic.app.security.domain.user.entities;
 
 import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
 import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 public class Address extends DomainEntity {
   private String street;
   private Integer number;
+  private String neighborhood;
   private String city;
   private String state;
   private Boolean commercialAddress;

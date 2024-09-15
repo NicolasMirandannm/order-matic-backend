@@ -11,6 +11,7 @@ public class AddressDocument {
   private String id;
   private String street;
   private Integer number;
+  private String neighborhood;
   private String city;
   private String state;
   private String cep;

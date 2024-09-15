@@ -1,7 +1,7 @@
 package com.ordermatic.app.security.domain.user.factory;
 
 import com.ordermatic.app.security.domain.user.factory.parameters.CustomerAddressFactoryParameter;
-import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.shared.exceptions.RequiredFieldException;
 import org.junit.jupiter.api.*;
 
@@ -28,6 +28,7 @@ public class CustomerAddressFactoryTest {
         .isCommercialAddress(true)
         .cep("00000-000")
         .street("Rua Teste")
+        .neighborhood("Bairro Teste")
         .number(123)
         .city("Campo Grande")
         .state("Mato Grosso Sul")
@@ -143,7 +144,7 @@ public class CustomerAddressFactoryTest {
 
       @Test
       void Then_should_throw_exception_to_required_parameters() {
-        assertEquals("CEP, Street, Number, City, State, Reference are required to Address creation.", exception.getMessage());
+        assertEquals("CEP, Street, Neighborhood, Number, City, State, Reference are required to Address creation.", exception.getMessage());
       }
     }
   }

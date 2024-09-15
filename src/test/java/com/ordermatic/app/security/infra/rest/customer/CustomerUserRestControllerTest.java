@@ -144,24 +144,23 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
     class When_customer_does_not_exist {
       @Nested
       class When_create_address {
+        private CustomerUser invalidCustomerUser;
 
         @BeforeEach
         void setup() {
-          var invalidCustomerUser = customerMockFactory.createCustomerUser(new UniqueIdentifier());
+          invalidCustomerUser = customerMockFactory.createCustomerUser(new UniqueIdentifier());
           token = jwtService.generateCustomerJwtToken(invalidCustomerUser);
         }
 
         @Test
         void then_address_is_created() throws Exception {
-          var invalidCustomerId = new UniqueIdentifier().getValue();
           mockMvc.perform(post("/security/customer-user/address")
             .header("Authorization", "Bearer " + token)
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(addressDto))
           ).andExpect(status().isBadRequest())
             .andExpect(result -> assertTrue(result.getResponse().getContentAsString()
-              .contains("User not found with id: " + invalidCustomerId))
-            );
+              .contains("User not found with id: " + invalidCustomerUser.getIdValue())));
         }
       }
     }

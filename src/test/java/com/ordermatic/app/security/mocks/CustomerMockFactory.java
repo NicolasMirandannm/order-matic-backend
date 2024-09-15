@@ -5,7 +5,7 @@ import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Cpf;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
-import com.ordermatic.app.security.domain.user.entities.address.Address;
+import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
 import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
 import com.ordermatic.app.security.infra.database.collections.user.customer.AddressDocument;
@@ -16,7 +16,6 @@ import com.ordermatic.shared.utilitaires.valueobjs.UniqueIdentifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class CustomerMockFactory {
@@ -29,6 +28,7 @@ public class CustomerMockFactory {
   private final static String DEFAULT_CITY = "São Paulo";
   private final static String DEFAULT_STATE = "SP";
   private final static String DEFAULT_STREET = "Paulista";
+  private final static String DEFAULT_NEIGHBORHOOD = "Paulista";
   private final static Integer DEFAULT_NUMBER = 100;
   private final static String DEFAULT_CEP = "12345678";
   private final static String DEFAULT_REFERENCE = "Near the mall";
@@ -52,6 +52,7 @@ public class CustomerMockFactory {
       .id(id)
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
+      .neighborhood(DEFAULT_NEIGHBORHOOD)
       .street(DEFAULT_STREET)
       .number(DEFAULT_NUMBER)
       .main(true)
@@ -66,6 +67,7 @@ public class CustomerMockFactory {
       .id(id)
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
+      .neighborhood(DEFAULT_NEIGHBORHOOD)
       .street(DEFAULT_STREET)
       .number(DEFAULT_NUMBER)
       .main(false)
@@ -84,6 +86,7 @@ public class CustomerMockFactory {
       .id(id)
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
+      .neighborhood(DEFAULT_NEIGHBORHOOD)
       .street(DEFAULT_STREET)
       .number(DEFAULT_NUMBER)
       .main(false)
@@ -103,6 +106,7 @@ public class CustomerMockFactory {
       .withId(id)
       .withCity(DEFAULT_CITY)
       .withState(DEFAULT_STATE)
+      .withNeighborhood(DEFAULT_NEIGHBORHOOD)
       .withStreet(DEFAULT_STREET)
       .withNumber(DEFAULT_NUMBER)
       .withCep(DEFAULT_CEP)
@@ -141,6 +145,7 @@ public class CustomerMockFactory {
     return AddressDto.builder()
       .street(DEFAULT_STREET)
       .number(DEFAULT_NUMBER)
+      .neighborhood(DEFAULT_NEIGHBORHOOD)
       .city(DEFAULT_CITY)
       .state(DEFAULT_STATE)
       .isCommercialAddress(false)

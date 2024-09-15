@@ -26,6 +26,7 @@ public class CustomerAddressFactoryParameter {
 
   private String street;
   private Integer number;
+  private String neighborhood;
   private String city;
   private String state;
   private Boolean isCommercialAddress;
