@@ -1,9 +1,9 @@
 package com.ordermatic.app.security.infra.rest.customer;
 
 
-import com.ordermatic.app.security.application.customer.dto.AddressDto;
-import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
-import com.ordermatic.app.security.application.customer.dto.TokenDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerAddressDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerUserDto;
+import com.ordermatic.app.security.domain.user.dto.TokenDto;
 import com.ordermatic.app.security.application.facades.CustomerUserFacade;
 import com.ordermatic.app.security.domain.bridge.JwtTokenBridge;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class CustomerUserRestController {
   }
 
   @PostMapping("/address")
-  public ResponseEntity<?> createCustomerUserAddress(@RequestHeader("Authorization") String token, @RequestBody AddressDto address) {
+  public ResponseEntity<?> createCustomerUserAddress(@RequestHeader("Authorization") String token, @RequestBody CustomerAddressDto address) {
     String customerId = jwtTokenBridge.getCustomerIdFromToken(token);
     customerUserFacade.createCustomerAddress(customerId, address);
     return ResponseEntity.status(HttpStatus.CREATED).build();

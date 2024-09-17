@@ -1,4 +1,4 @@
-package com.ordermatic.app.security.application.customer.dto;
+package com.ordermatic.app.security.domain.user.dto;
 
 import lombok.Getter;
 

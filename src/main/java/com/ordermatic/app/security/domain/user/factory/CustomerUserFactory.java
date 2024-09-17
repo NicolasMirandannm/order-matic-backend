@@ -2,7 +2,7 @@ package com.ordermatic.app.security.domain.user.factory;
 
 import com.ordermatic.app.security.domain.bridge.PasswordEncryptionBridge;
 import com.ordermatic.app.security.domain.user.CustomerUser;
-import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
+import com.ordermatic.app.security.domain.user.dto.CustomerUserDto;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
 import com.ordermatic.shared.utilitaires.services.LinkedFieldsValidation;
@@ -21,7 +21,7 @@ public class CustomerUserFactory {
     this.passwordEncryptionBridge = passwordEncryptionBridge;
   }
 
-  public CustomerUser create(@NonNull CustomerUserFactoryParameter parameters) {
+  public CustomerUser create(@NonNull CustomerUserDto parameters) {
     validateCustomerUserParameters(parameters);
 
     return CustomerUser.aCustomerUser()
@@ -33,7 +33,7 @@ public class CustomerUserFactory {
       .build();
   }
 
-  private void validateCustomerUserParameters(CustomerUserFactoryParameter parameters) {
+  private void validateCustomerUserParameters(CustomerUserDto parameters) {
     LinkedFieldsValidation.linkedValidation()
       .ifEmpty(parameters.getUsername(), "Username")
       .ifEmpty(parameters.getEmail(), "Email")

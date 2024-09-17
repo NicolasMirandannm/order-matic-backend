@@ -1,6 +1,6 @@
 package com.ordermatic.app.security.mocks;
 
-import com.ordermatic.app.security.application.customer.dto.AddressDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerAddressDto;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Cpf;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
@@ -141,8 +141,8 @@ public class CustomerMockFactory {
       .build();
   }
 
-  public AddressDto createAddressDto() {
-    return AddressDto.builder()
+  public CustomerAddressDto createAddressDto() {
+    return CustomerAddressDto.builder()
       .street(DEFAULT_STREET)
       .number(DEFAULT_NUMBER)
       .neighborhood(DEFAULT_NEIGHBORHOOD)

@@ -1,11 +1,11 @@
 package com.ordermatic.app.security.application.customer;
 
 import com.ordermatic.app.security.SecurityModuleTest;
-import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
 import com.ordermatic.app.security.application.customer.services.CustomerUserCreationService;
 import com.ordermatic.app.security.domain.exceptions.UserAlreadyExistsException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
+import com.ordermatic.app.security.domain.user.dto.CustomerUserDto;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
 import com.ordermatic.app.security.domain.user.valueobjects.Phone;
 import org.junit.jupiter.api.*;

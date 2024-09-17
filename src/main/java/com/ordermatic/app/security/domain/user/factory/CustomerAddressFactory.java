@@ -1,6 +1,8 @@
 package com.ordermatic.app.security.domain.user.factory;
 
-import com.ordermatic.app.security.domain.user.factory.parameters.CustomerAddressFactoryParameter;
+import com.ordermatic.app.security.domain.user.dto.ApartmentDto;
+import com.ordermatic.app.security.domain.user.dto.CondominiumDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerAddressDto;
 import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.app.security.domain.user.valueobjects.Apartment;
 import com.ordermatic.app.security.domain.user.valueobjects.Condominium;
@@ -13,46 +15,46 @@ import static java.util.Objects.isNull;
 
 @Component
 public class CustomerAddressFactory {
-  public Address create(@NonNull CustomerAddressFactoryParameter customerAddressFactoryParameter) {
-    requiredFieldsVerification(customerAddressFactoryParameter);
+  public Address create(@NonNull CustomerAddressDto customerAddressDto) {
+    requiredFieldsVerification(customerAddressDto);
 
-    var isCommercialAddress = customerAddressFactoryParameter.getIsCommercialAddress();
+    var isCommercialAddress = customerAddressDto.getIsCommercialAddress();
     return Address.anAddress()
       .withId(new UniqueIdentifier())
-      .withCep(customerAddressFactoryParameter.getCep())
-      .withStreet(customerAddressFactoryParameter.getStreet())
-      .withNeighborhood(customerAddressFactoryParameter.getNeighborhood())
-      .withNumber(customerAddressFactoryParameter.getNumber())
-      .withCity(customerAddressFactoryParameter.getCity())
-      .withState(customerAddressFactoryParameter.getState())
+      .withCep(customerAddressDto.getCep())
+      .withStreet(customerAddressDto.getStreet())
+      .withNeighborhood(customerAddressDto.getNeighborhood())
+      .withNumber(customerAddressDto.getNumber())
+      .withCity(customerAddressDto.getCity())
+      .withState(customerAddressDto.getState())
       .withCommercialAddress(!isNull(isCommercialAddress) && isCommercialAddress)
-      .withReference(customerAddressFactoryParameter.getReference())
-      .withCondominium(assembleCondominium(customerAddressFactoryParameter.getCondominium()))
-      .withApartment(assembleApartment(customerAddressFactoryParameter.getApartment()))
+      .withReference(customerAddressDto.getReference())
+      .withCondominium(assembleCondominium(customerAddressDto.getCondominium()))
+      .withApartment(assembleApartment(customerAddressDto.getApartment()))
       .build();
   }
 
-  private void requiredFieldsVerification(CustomerAddressFactoryParameter customerAddressFactoryParameter) {
+  private void requiredFieldsVerification(CustomerAddressDto customerAddressDto) {
     LinkedFieldsValidation.linkedValidation()
-      .ifEmpty(customerAddressFactoryParameter.getCep(), "CEP")
-      .ifEmpty(customerAddressFactoryParameter.getStreet(), "Street")
-      .ifEmpty(customerAddressFactoryParameter.getNeighborhood(), "Neighborhood")
-      .ifNull(customerAddressFactoryParameter.getNumber(), "Number")
-      .ifEmpty(customerAddressFactoryParameter.getCity(), "City")
-      .ifEmpty(customerAddressFactoryParameter.getState(), "State")
-      .ifEmpty(customerAddressFactoryParameter.getReference(), "Reference")
+      .ifEmpty(customerAddressDto.getCep(), "CEP")
+      .ifEmpty(customerAddressDto.getStreet(), "Street")
+      .ifEmpty(customerAddressDto.getNeighborhood(), "Neighborhood")
+      .ifNull(customerAddressDto.getNumber(), "Number")
+      .ifEmpty(customerAddressDto.getCity(), "City")
+      .ifEmpty(customerAddressDto.getState(), "State")
+      .ifEmpty(customerAddressDto.getReference(), "Reference")
       .ifAnyExceptionExistsThrow("are required to Address creation.");
   }
 
-  private Apartment assembleApartment(CustomerAddressFactoryParameter.Apartment apartmentParam) {
-    return isNull(apartmentParam)
+  private Apartment assembleApartment(ApartmentDto apartmentDto) {
+    return isNull(apartmentDto)
       ? null
-      : new Apartment(apartmentParam.getNumber(), apartmentParam.getBlock(), apartmentParam.getFloor(), apartmentParam.getObservation());
+      : new Apartment(apartmentDto.getNumber(), apartmentDto.getBlock(), apartmentDto.getFloor(), apartmentDto.getObservation());
   }
 
-  private Condominium assembleCondominium(CustomerAddressFactoryParameter.Condominium condominiumParam) {
-    return isNull(condominiumParam)
+  private Condominium assembleCondominium(CondominiumDto condominiumDto) {
+    return isNull(condominiumDto)
       ? null
-      : new Condominium(condominiumParam.getBlock(), condominiumParam.getHouseNumber(), condominiumParam.getObservation());
+      : new Condominium(condominiumDto.getBlock(), condominiumDto.getHouseNumber(), condominiumDto.getObservation());
   }
 }
