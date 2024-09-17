@@ -1,11 +1,11 @@
-package com.ordermatic.app.security.application.customer.dto;
+package com.ordermatic.app.security.domain.user.dto;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class AddressDto {
+public class CustomerAddressDto {
   private String street;
   private Integer number;
   private String neighborhood;

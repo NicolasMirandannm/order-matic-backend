@@ -1,8 +1,8 @@
 package com.ordermatic.app.security.application.customer;
 
-import com.ordermatic.app.security.application.customer.dto.AddressDto;
-import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
-import com.ordermatic.app.security.application.customer.dto.TokenDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerAddressDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerUserDto;
+import com.ordermatic.app.security.domain.user.dto.TokenDto;
 import com.ordermatic.app.security.application.customer.services.CustomerAddressCreationService;
 import com.ordermatic.app.security.application.customer.services.CustomerUserCreationService;
 import com.ordermatic.app.security.application.facades.CustomerUserFacade;
@@ -27,7 +27,7 @@ public class CustomerUserFacadeImpl implements CustomerUserFacade {
   }
 
   @Override
-  public void createCustomerAddress(String customerId, AddressDto address) {
+  public void createCustomerAddress(String customerId, CustomerAddressDto address) {
     customerAddressCreationService.execute(customerId, address);
   }
 }

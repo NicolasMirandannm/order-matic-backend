@@ -2,9 +2,8 @@ package com.ordermatic.app.security.domain.user.factory;
 
 import com.ordermatic.app.security.SecurityModuleTest;
 import com.ordermatic.app.security.domain.user.CustomerUser;
-import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
+import com.ordermatic.app.security.domain.user.dto.CustomerUserDto;
 import com.ordermatic.shared.exceptions.RequiredFieldException;
-import com.ordermatic.shared.utilitaires.services.LinkedFieldsValidation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,11 +18,11 @@ public class CustomerUserFactoryTest extends SecurityModuleTest {
 
   @Nested
   class Given_new_customer_user {
-    private CustomerUserFactoryParameter parameters;
+    private CustomerUserDto customerUserDto;
 
     @BeforeEach
     void setup() {
-      parameters = CustomerUserFactoryParameter.builder()
+      customerUserDto = CustomerUserDto.builder()
         .username("Nicolas Leonardo Miranda Lima")
         .email("nicolas.dev@gmail.com")
         .password("123456")
@@ -37,7 +36,7 @@ public class CustomerUserFactoryTest extends SecurityModuleTest {
 
       @BeforeEach
       void setup() {
-        customerUserCreated = customerUserFactory.create(parameters);
+        customerUserCreated = customerUserFactory.create(customerUserDto);
       }
 
       @Test
@@ -51,7 +50,7 @@ public class CustomerUserFactoryTest extends SecurityModuleTest {
 
       @Test
       void Then_customer_password_must_be_encrypted() {
-        assertNotEquals(parameters.getPassword(), customerUserCreated.getPassword());
+        assertNotEquals(customerUserDto.getPassword(), customerUserCreated.getPassword());
       }
     }
 
@@ -61,7 +60,7 @@ public class CustomerUserFactoryTest extends SecurityModuleTest {
 
       @BeforeEach
       void setup() {
-        var emptyParameters = CustomerUserFactoryParameter.builder().build();
+        var emptyParameters = CustomerUserDto.builder().build();
         exception = assertThrows(RequiredFieldException.class, () -> customerUserFactory.create(emptyParameters));
       }
       @Test

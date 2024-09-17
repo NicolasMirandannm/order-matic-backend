@@ -1,6 +1,8 @@
 package com.ordermatic.app.security.domain.user.factory;
 
-import com.ordermatic.app.security.domain.user.factory.parameters.CustomerAddressFactoryParameter;
+import com.ordermatic.app.security.domain.user.dto.ApartmentDto;
+import com.ordermatic.app.security.domain.user.dto.CondominiumDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerAddressDto;
 import com.ordermatic.app.security.domain.user.entities.Address;
 import com.ordermatic.shared.exceptions.RequiredFieldException;
 import org.junit.jupiter.api.*;
@@ -20,11 +22,11 @@ public class CustomerAddressFactoryTest {
 
   @Nested
   class Given_a_new_address_parameters {
-    private CustomerAddressFactoryParameter customerAddressFactoryParameter;
+    private CustomerAddressDto customerAddressDto;
 
     @BeforeEach
     void setup() {
-      customerAddressFactoryParameter = CustomerAddressFactoryParameter.builder()
+      customerAddressDto = CustomerAddressDto.builder()
         .isCommercialAddress(true)
         .cep("00000-000")
         .street("Rua Teste")
@@ -42,20 +44,20 @@ public class CustomerAddressFactoryTest {
 
       @BeforeEach
       void setup() {
-        customerAddress = customerAddressFactory.create(customerAddressFactoryParameter);
+        customerAddress = customerAddressFactory.create(customerAddressDto);
       }
 
       @Test
       void Then_address_should_be_created() {
         assertNotNull(customerAddress);
         assertNotNull(customerAddress.getId());
-        assertEquals(customerAddress.getCep(), customerAddressFactoryParameter.getCep());
-        assertEquals(customerAddress.getStreet(), customerAddressFactoryParameter.getStreet());
-        assertEquals(customerAddress.getNumber(), customerAddressFactoryParameter.getNumber());
-        assertEquals(customerAddress.getCity(), customerAddressFactoryParameter.getCity());
-        assertEquals(customerAddress.getState(), customerAddressFactoryParameter.getState());
-        assertEquals(customerAddress.isCommercialAddress(), customerAddressFactoryParameter.getIsCommercialAddress());
-        assertEquals(customerAddress.getReference(), customerAddressFactoryParameter.getReference());
+        assertEquals(customerAddress.getCep(), customerAddressDto.getCep());
+        assertEquals(customerAddress.getStreet(), customerAddressDto.getStreet());
+        assertEquals(customerAddress.getNumber(), customerAddressDto.getNumber());
+        assertEquals(customerAddress.getCity(), customerAddressDto.getCity());
+        assertEquals(customerAddress.getState(), customerAddressDto.getState());
+        assertEquals(customerAddress.isCommercialAddress(), customerAddressDto.getIsCommercialAddress());
+        assertEquals(customerAddress.getReference(), customerAddressDto.getReference());
         assertNull(customerAddress.getCondominium());
         assertNull(customerAddress.getApartment());
       }
@@ -64,18 +66,18 @@ public class CustomerAddressFactoryTest {
     @Nested
     class When_create_a_simple_address_with_condominium {
       private Address customerAddress;
-      private CustomerAddressFactoryParameter.Condominium condominium;
+      private CondominiumDto condominium;
 
       @BeforeEach
       void setup() {
-        condominium = CustomerAddressFactoryParameter.Condominium.builder()
+        condominium = CondominiumDto.builder()
           .block("A")
           .houseNumber(123)
           .observation("Near the market")
           .build();
 
-        customerAddressFactoryParameter.setCondominium(condominium);
-        customerAddress = customerAddressFactory.create(customerAddressFactoryParameter);
+        customerAddressDto.setCondominium(condominium);
+        customerAddress = customerAddressFactory.create(customerAddressDto);
       }
 
       @Test
@@ -90,19 +92,19 @@ public class CustomerAddressFactoryTest {
     @Nested
     class When_create_a_simple_address_with_apartment {
       private Address customerAddress;
-      private CustomerAddressFactoryParameter.Apartment apartment;
+      private ApartmentDto apartment;
 
       @BeforeEach
       void setup() {
-        apartment = CustomerAddressFactoryParameter.Apartment.builder()
+        apartment = ApartmentDto.builder()
           .number("123")
           .block("A")
           .floor("1")
           .observation("Near the market")
           .build();
 
-        customerAddressFactoryParameter.setApartment(apartment);
-        customerAddress = customerAddressFactory.create(customerAddressFactoryParameter);
+        customerAddressDto.setApartment(apartment);
+        customerAddress = customerAddressFactory.create(customerAddressDto);
       }
 
       @Test
@@ -121,8 +123,8 @@ public class CustomerAddressFactoryTest {
 
       @BeforeEach
       void setup() {
-        customerAddressFactoryParameter.setIsCommercialAddress(null);
-        customerAddress = customerAddressFactory.create(customerAddressFactoryParameter);
+        customerAddressDto.setIsCommercialAddress(null);
+        customerAddress = customerAddressFactory.create(customerAddressDto);
       }
 
       @Test
@@ -139,7 +141,7 @@ public class CustomerAddressFactoryTest {
       @BeforeEach
       void setup() {
         exception = assertThrows(RequiredFieldException.class, () ->
-          customerAddressFactory.create(CustomerAddressFactoryParameter.builder().build()));
+          customerAddressFactory.create(CustomerAddressDto.builder().build()));
       }
 
       @Test

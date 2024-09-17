@@ -1,14 +1,13 @@
 package com.ordermatic.app.security.application.customer.services;
 
-import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
-import com.ordermatic.app.security.application.customer.dto.TokenDto;
 import com.ordermatic.app.security.domain.bridge.JwtTokenBridge;
 import com.ordermatic.app.security.domain.exceptions.UserAlreadyExistsException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
+import com.ordermatic.app.security.domain.user.dto.CustomerUserDto;
+import com.ordermatic.app.security.domain.user.dto.TokenDto;
 import com.ordermatic.app.security.domain.user.enums.UserType;
 import com.ordermatic.app.security.domain.user.factory.CustomerUserFactory;
-import com.ordermatic.app.security.domain.user.factory.parameters.CustomerUserFactoryParameter;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,20 +27,13 @@ public class CustomerUserCreationService {
   }
 
   public TokenDto execute(@NonNull CustomerUserDto customerUserDto) {
-    CustomerUserFactoryParameter customerUserFactoryParameter = CustomerUserFactoryParameter.builder()
-      .username(customerUserDto.getUsername())
-      .password(customerUserDto.getPassword())
-      .email(customerUserDto.getEmail())
-      .phoneNumber(customerUserDto.getPhoneNumber())
-      .build();
+    CustomerUser customerUser = customerUserFactory.create(customerUserDto);
 
-    CustomerUser customerUserCreated = customerUserFactory.create(customerUserFactoryParameter);
-
-    if (customerUserRepository.findByEmailAndPhone(customerUserCreated.getEmail(), customerUserCreated.getPhone()).isPresent()) {
+    if (customerUserRepository.findByEmailAndPhone(customerUser.getEmail(), customerUser.getPhone()).isPresent()) {
       throw new UserAlreadyExistsException(UserType.CUSTOMER);
     }
 
-    customerUserRepository.save(customerUserFactory.create(customerUserFactoryParameter));
-    return new TokenDto(jwtTokenBridge.generateCustomerJwtToken(customerUserCreated));
+    customerUserRepository.save(customerUser);
+    return new TokenDto(jwtTokenBridge.generateCustomerJwtToken(customerUser));
   }
 }

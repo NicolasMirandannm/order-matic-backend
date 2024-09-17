@@ -1,8 +1,8 @@
 package com.ordermatic.app.security.infra.rest.customer;
 
 import com.ordermatic.app.security.SecurityModuleTest;
-import com.ordermatic.app.security.application.customer.dto.AddressDto;
-import com.ordermatic.app.security.application.customer.dto.CustomerUserDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerAddressDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerUserDto;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
 import com.ordermatic.app.security.domain.user.CustomerUser;
 import com.ordermatic.app.security.domain.user.valueobjects.Email;
@@ -103,7 +103,7 @@ public class CustomerUserRestControllerTest extends SecurityModuleTest {
 
   @Nested
   class Given_an_address_dto {
-    private AddressDto addressDto;
+    private CustomerAddressDto addressDto;
     private String token;
 
     @BeforeEach

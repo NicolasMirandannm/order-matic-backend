@@ -1,7 +1,7 @@
 package com.ordermatic.app.security.application.customer;
 
 import com.ordermatic.app.security.SecurityModuleTest;
-import com.ordermatic.app.security.application.customer.dto.AddressDto;
+import com.ordermatic.app.security.domain.user.dto.CustomerAddressDto;
 import com.ordermatic.app.security.application.customer.services.CustomerAddressCreationService;
 import com.ordermatic.app.security.domain.exceptions.UserNotFoundException;
 import com.ordermatic.app.security.domain.repositories.CustomerUserRepository;
@@ -38,11 +38,11 @@ public class CustomerAddressCreationServiceTest extends SecurityModuleTest {
 
   @Nested
   class Given_a_new_address {
-    private AddressDto addressDto;
+    private CustomerAddressDto addressDto;
 
     @BeforeEach
     void setup() {
-      addressDto = AddressDto.builder()
+      addressDto = CustomerAddressDto.builder()
         .street("fools street")
         .number(123)
         .neighborhood("fools neighborhood")
@@ -108,7 +108,7 @@ public class CustomerAddressCreationServiceTest extends SecurityModuleTest {
 
     @Nested
     class When_the_new_address_is_marked_as_main {
-      private AddressDto addressDto;
+      private CustomerAddressDto addressDto;
 
       @BeforeEach
       void setup() {
