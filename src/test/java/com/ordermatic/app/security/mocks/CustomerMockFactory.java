@@ -143,6 +143,21 @@ public class CustomerMockFactory {
 
   public CustomerAddressDto createAddressDto() {
     return CustomerAddressDto.builder()
+      .id(new UniqueIdentifier().getValue())
+      .street(DEFAULT_STREET)
+      .number(DEFAULT_NUMBER)
+      .neighborhood(DEFAULT_NEIGHBORHOOD)
+      .city(DEFAULT_CITY)
+      .state(DEFAULT_STATE)
+      .isCommercialAddress(false)
+      .cep(DEFAULT_CEP)
+      .reference(DEFAULT_REFERENCE)
+      .build();
+  }
+
+  public CustomerAddressDto createAddressDto(UniqueIdentifier id) {
+    return CustomerAddressDto.builder()
+      .id(id.getValue())
       .street(DEFAULT_STREET)
       .number(DEFAULT_NUMBER)
       .neighborhood(DEFAULT_NEIGHBORHOOD)

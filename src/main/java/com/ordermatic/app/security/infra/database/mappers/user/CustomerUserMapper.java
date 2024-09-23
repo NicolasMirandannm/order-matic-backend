@@ -51,8 +51,8 @@ public class CustomerUserMapper implements Mapper<CustomerUser, CustomerUserColl
       .addresses(domain.getAddresses().stream().map(address -> mapAddressEntity(address, false)).toList())
       .build();
 
-    if (domain.getMainAddress().isPresent()) {
-      customerUser.addAddress(mapAddressEntity(domain.getMainAddress().get(), true));
+    if (domain.getOptionalMainAddress().isPresent()) {
+      customerUser.addAddress(mapAddressEntity(domain.getOptionalMainAddress().get(), true));
     }
     return customerUser;
   }

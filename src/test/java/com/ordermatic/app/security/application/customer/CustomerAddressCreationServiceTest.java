@@ -124,7 +124,7 @@ public class CustomerAddressCreationServiceTest extends SecurityModuleTest {
         void setup() {
           customerAddressCreationService.execute(customer.getIdValue(), addressDto);
           customer = customerUserRepository.findById(customer.getId()).orElseThrow();
-          newMainAddress = customer.getMainAddress().orElse(null);
+          newMainAddress = customer.getOptionalMainAddress().orElse(null);
         }
 
         @Test

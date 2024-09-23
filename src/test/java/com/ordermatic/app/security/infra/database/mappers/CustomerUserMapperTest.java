@@ -102,8 +102,8 @@ public class CustomerUserMapperTest {
 
         @Test
         void Then_main_address_must_be_mapped() {
-          Assertions.assertFalse(mappedCustomerUser.getMainAddress().isEmpty());
-          Assertions.assertEquals(mainAddress, mappedCustomerUser.getMainAddress().get());
+          Assertions.assertFalse(mappedCustomerUser.getOptionalMainAddress().isEmpty());
+          Assertions.assertEquals(mainAddress, mappedCustomerUser.getOptionalMainAddress().get());
         }
 
         @Test

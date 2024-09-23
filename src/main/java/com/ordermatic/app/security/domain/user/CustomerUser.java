@@ -45,7 +45,17 @@ public class CustomerUser extends AbstractUserAggregate {
     this.addresses.add(newAddress);
   }
 
-  public Optional<Address> getMainAddress() {
+
+  //todo: testar quando nao existir nenhum endereço com esse id
+  //todo: testar validação dos atributos de address
+  //todo: testar quando o endereço a ser atualizado não é o principal
+  public void updateAddress(Address updatedAddress) {
+    if (updatedAddress.getId().equals(mainAddress.getId())) {
+      mainAddress = updatedAddress;
+    }
+  }
+
+  public Optional<Address> getOptionalMainAddress() {
     return Optional.ofNullable(mainAddress);
   }
 

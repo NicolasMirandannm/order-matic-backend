@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class CustomerAddressDto {
+  private String id;
   private String street;
   private Integer number;
   private String neighborhood;
