@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '22'
+          java-version: '23'
 
       - name: Get current version from pom.xml
         id: get_version
