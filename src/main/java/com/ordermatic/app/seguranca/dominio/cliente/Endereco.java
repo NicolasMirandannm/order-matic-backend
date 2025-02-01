@@ -10,7 +10,7 @@ import lombok.*;
 public class Endereco {
     private String id;
     private String rua;
-    private Integer numbero;
+    private Integer numero;
     private String cidade;
     private String estado;
     private String cep;
