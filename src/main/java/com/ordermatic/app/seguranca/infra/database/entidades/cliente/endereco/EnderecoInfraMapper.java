@@ -7,7 +7,7 @@ import com.ordermatic.app.seguranca.dominio.cliente.Endereco;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EnderecoOrmMapper {
+public class EnderecoInfraMapper {
 
   public Endereco toDomain(EnderecoORM entity) {
     if (entity == null) {
@@ -22,8 +22,8 @@ public class EnderecoOrmMapper {
         .estado(entity.getEstado())
         .cep(entity.getCep())
         .complemento(entity.getComplemento())
-        .condominio(toCondominioDomain(entity.getCondominio()))
-        .apartamento(toApartamentoDomain(entity.getApartamento()))
+        .condominio(toCondominioValObj(entity.getCondominio()))
+        .apartamento(toApartamentoValObj(entity.getApartamento()))
         .build();
   }
 
@@ -40,12 +40,12 @@ public class EnderecoOrmMapper {
         .estado(domain.getEstado())
         .cep(domain.getCep())
         .complemento(domain.getComplemento())
-        .condominio(toCondominioValObj(domain.getCondominio()))
-        .apartamento(toApartamentoValObj(domain.getApartamento()))
+        .condominio(toCondominioORM(domain.getCondominio()))
+        .apartamento(toApartamentoORM(domain.getApartamento()))
         .build();
   }
 
-  private Condominio toCondominioDomain(CondominioEmbeddedORM condominioEntity) {
+  private Condominio toCondominioValObj(CondominioEmbeddedORM condominioEntity) {
     if (condominioEntity == null) {
       return null;
     }
@@ -57,7 +57,7 @@ public class EnderecoOrmMapper {
         .build();
   }
 
-  private CondominioEmbeddedORM toCondominioValObj(Condominio condominioDomain) {
+  private CondominioEmbeddedORM toCondominioORM(Condominio condominioDomain) {
     if (condominioDomain == null) {
       return null;
     }
@@ -69,7 +69,7 @@ public class EnderecoOrmMapper {
         .build();
   }
 
-  private Apartamento toApartamentoDomain(ApartamentoEmbeddedORM apartamentoEntity) {
+  private Apartamento toApartamentoValObj(ApartamentoEmbeddedORM apartamentoEntity) {
     if (apartamentoEntity == null) {
       return null;
     }
@@ -82,7 +82,7 @@ public class EnderecoOrmMapper {
         .build();
   }
 
-  private ApartamentoEmbeddedORM toApartamentoValObj(Apartamento apartamentoDomain) {
+  private ApartamentoEmbeddedORM toApartamentoORM(Apartamento apartamentoDomain) {
     if (apartamentoDomain == null) {
       return null;
     }
