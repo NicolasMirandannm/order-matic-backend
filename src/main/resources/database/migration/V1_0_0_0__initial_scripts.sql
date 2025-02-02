@@ -1,4 +1,4 @@
-CREATE TABLE enderecos (
+CREATE TABLE endereco (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     rua VARCHAR(255) NOT NULL,
     numero INTEGER NOT NULL,

@@ -6,10 +6,12 @@ import com.ordermatic.app.seguranca.aplicacao.dto.endereco.EnderecoDto;
 import com.ordermatic.app.seguranca.dominio.cliente.Apartamento;
 import com.ordermatic.app.seguranca.dominio.cliente.Condominio;
 import com.ordermatic.app.seguranca.dominio.cliente.Endereco;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EnderecoMapper {
 
-  public static EnderecoDto toDto(Endereco endereco) {
+  public EnderecoDto toDto(Endereco endereco) {
     if (endereco == null) {
       return null;
     }
@@ -22,13 +24,12 @@ public class EnderecoMapper {
         .estado(endereco.getEstado())
         .cep(endereco.getCep())
         .complemento(endereco.getComplemento())
-        .principal(endereco.getPrincipal())
-        .condominio(toDto(endereco.getCondominio()))
-        .apartamento(toDto(endereco.getApartamento()))
+        .condominio(toCondominioValObj(endereco.getCondominio()))
+        .apartamento(toApartamentoValObj(endereco.getApartamento()))
         .build();
   }
 
-  public static Endereco toDomain(EnderecoDto enderecoDto) {
+  public Endereco toDomain(EnderecoDto enderecoDto) {
     if (enderecoDto == null) {
       return null;
     }
@@ -41,13 +42,12 @@ public class EnderecoMapper {
         .estado(enderecoDto.getEstado())
         .cep(enderecoDto.getCep())
         .complemento(enderecoDto.getComplemento())
-        .principal(enderecoDto.getPrincipal())
-        .condominio(toDomain(enderecoDto.getCondominio()))
-        .apartamento(toDomain(enderecoDto.getApartamento()))
+        .condominio(toCondominioDomain(enderecoDto.getCondominio()))
+        .apartamento(toApartamentoDomain(enderecoDto.getApartamento()))
         .build();
   }
 
-  public static CondominioDto toDto(Condominio condominio) {
+  private CondominioDto toCondominioValObj(Condominio condominio) {
     if (condominio == null) {
       return null;
     }
@@ -59,7 +59,7 @@ public class EnderecoMapper {
         .build();
   }
 
-  public static Condominio toDomain(CondominioDto condominioDto) {
+  private Condominio toCondominioDomain(CondominioDto condominioDto) {
     if (condominioDto == null) {
       return null;
     }
@@ -71,7 +71,7 @@ public class EnderecoMapper {
         .build();
   }
 
-  public static ApartamentoDto toDto(Apartamento apartamento) {
+  private ApartamentoDto toApartamentoValObj(Apartamento apartamento) {
     if (apartamento == null) {
       return null;
     }
@@ -84,7 +84,7 @@ public class EnderecoMapper {
         .build();
   }
 
-  public static Apartamento toDomain(ApartamentoDto apartamentoDto) {
+  private Apartamento toApartamentoDomain(ApartamentoDto apartamentoDto) {
     if (apartamentoDto == null) {
       return null;
     }

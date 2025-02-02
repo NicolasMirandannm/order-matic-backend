@@ -1,6 +1,6 @@
 package com.ordermatic.app.seguranca.dominio.cliente;
 
-import com.ordermatic.app.seguranca.dominio.cliente.excecao.ApartamentoInvalidoExcecao;
+import com.ordermatic.app.seguranca.dominio.cliente.excecao.ApartamentoInvalidoException;
 import lombok.*;
 
 import static java.util.Objects.isNull;
@@ -9,10 +9,10 @@ import static java.util.Objects.isNull;
 public record Apartamento(String numero, String bloco, String andar, String complemento) {
   public Apartamento {
     if (isNull(numero) || numero.isBlank()) {
-      throw new ApartamentoInvalidoExcecao("número");
+      throw new ApartamentoInvalidoException("número");
     }
     if (andar == null || andar.isBlank()) {
-      throw new ApartamentoInvalidoExcecao("andar");
+      throw new ApartamentoInvalidoException("andar");
     }
   }
 }

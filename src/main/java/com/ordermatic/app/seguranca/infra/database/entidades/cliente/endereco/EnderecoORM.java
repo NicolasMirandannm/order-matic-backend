@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "enderecos")
+@Table(name = "endereco")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnderecoEntity {
+public class EnderecoORM {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -34,12 +34,9 @@ public class EnderecoEntity {
   @Column(name = "complemento")
   private String complemento;
 
-  @Column(name = "principal")
-  private Boolean principal;
+  @Embedded
+  private ApartamentoEmbeddedORM apartamento;
 
   @Embedded
-  private ApartamentoEmbeddedEntity apartamento;
-
-  @Embedded
-  private CondominioEmbeddedEntity condominio;
+  private CondominioEmbeddedORM condominio;
 }

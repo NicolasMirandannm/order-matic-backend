@@ -10,13 +10,17 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApartamentoEmbeddedEntity {
+public class ApartamentoEmbeddedORM {
+
     @Column(name = "apartamento_numero")
     private String numero;
+
     @Column(name = "apartamento_bloco")
     private String bloco;
+
     @Column(name = "apartamento_andar")
     private String andar;
+
     @Column(name = "apartamento_complemento")
     private String complemento;
 }

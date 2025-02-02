@@ -4,10 +4,12 @@ package com.ordermatic.app.seguranca.infra.database.entidades.cliente.endereco;
 import com.ordermatic.app.seguranca.dominio.cliente.Apartamento;
 import com.ordermatic.app.seguranca.dominio.cliente.Condominio;
 import com.ordermatic.app.seguranca.dominio.cliente.Endereco;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EnderecoOrmMapper {
 
-  public static Endereco toDomain(EnderecoEntity entity) {
+  public Endereco toDomain(EnderecoORM entity) {
     if (entity == null) {
       return null;
     }
@@ -20,18 +22,17 @@ public class EnderecoOrmMapper {
         .estado(entity.getEstado())
         .cep(entity.getCep())
         .complemento(entity.getComplemento())
-        .principal(entity.getPrincipal())
-        .condominio(toDomain(entity.getCondominio()))
-        .apartamento(toDomain(entity.getApartamento()))
+        .condominio(toCondominioDomain(entity.getCondominio()))
+        .apartamento(toApartamentoDomain(entity.getApartamento()))
         .build();
   }
 
-  public static EnderecoEntity toEntity(Endereco domain) {
+  public EnderecoORM toORM(Endereco domain) {
     if (domain == null) {
       return null;
     }
 
-    return EnderecoEntity.builder()
+    return EnderecoORM.builder()
         .id(domain.getId())
         .rua(domain.getRua())
         .numero(domain.getNumero())
@@ -39,13 +40,12 @@ public class EnderecoOrmMapper {
         .estado(domain.getEstado())
         .cep(domain.getCep())
         .complemento(domain.getComplemento())
-        .principal(domain.getPrincipal())
-        .condominio(toEntity(domain.getCondominio()))
-        .apartamento(toEntity(domain.getApartamento()))
+        .condominio(toCondominioValObj(domain.getCondominio()))
+        .apartamento(toApartamentoValObj(domain.getApartamento()))
         .build();
   }
 
-  public static Condominio toDomain(CondominioEmbeddedEntity condominioEntity) {
+  private Condominio toCondominioDomain(CondominioEmbeddedORM condominioEntity) {
     if (condominioEntity == null) {
       return null;
     }
@@ -57,19 +57,19 @@ public class EnderecoOrmMapper {
         .build();
   }
 
-  public static CondominioEmbeddedEntity toEntity(Condominio condominioDomain) {
+  private CondominioEmbeddedORM toCondominioValObj(Condominio condominioDomain) {
     if (condominioDomain == null) {
       return null;
     }
 
-    return CondominioEmbeddedEntity.builder()
+    return CondominioEmbeddedORM.builder()
         .nome(condominioDomain.nome())
         .numeroCasa(condominioDomain.numeroCasa())
         .complemento(condominioDomain.complemento())
         .build();
   }
 
-  public static Apartamento toDomain(ApartamentoEmbeddedEntity apartamentoEntity) {
+  private Apartamento toApartamentoDomain(ApartamentoEmbeddedORM apartamentoEntity) {
     if (apartamentoEntity == null) {
       return null;
     }
@@ -82,12 +82,12 @@ public class EnderecoOrmMapper {
         .build();
   }
 
-  public static ApartamentoEmbeddedEntity toEntity(Apartamento apartamentoDomain) {
+  private ApartamentoEmbeddedORM toApartamentoValObj(Apartamento apartamentoDomain) {
     if (apartamentoDomain == null) {
       return null;
     }
 
-    return ApartamentoEmbeddedEntity.builder()
+    return ApartamentoEmbeddedORM.builder()
         .numero(apartamentoDomain.numero())
         .bloco(apartamentoDomain.bloco())
         .andar(apartamentoDomain.andar())

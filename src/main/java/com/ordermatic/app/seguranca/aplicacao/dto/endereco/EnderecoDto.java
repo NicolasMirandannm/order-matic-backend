@@ -16,7 +16,6 @@ public class EnderecoDto {
   private String estado;
   private String cep;
   private String complemento;
-  private Boolean principal;
   private CondominioDto condominio;
   private ApartamentoDto apartamento;
 }
