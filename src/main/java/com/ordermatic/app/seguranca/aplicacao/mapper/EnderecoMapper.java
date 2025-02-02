@@ -17,7 +17,7 @@ public class EnderecoMapper {
     return EnderecoDto.builder()
         .id(endereco.getId())
         .rua(endereco.getRua())
-        .numero(endereco.getNumbero())
+        .numero(endereco.getNumero())
         .cidade(endereco.getCidade())
         .estado(endereco.getEstado())
         .cep(endereco.getCep())
@@ -36,7 +36,7 @@ public class EnderecoMapper {
     return Endereco.builder()
         .id(enderecoDto.getId())
         .rua(enderecoDto.getRua())
-        .numbero(enderecoDto.getNumero())
+        .numero(enderecoDto.getNumero())
         .cidade(enderecoDto.getCidade())
         .estado(enderecoDto.getEstado())
         .cep(enderecoDto.getCep())
@@ -44,6 +44,30 @@ public class EnderecoMapper {
         .principal(enderecoDto.getPrincipal())
         .condominio(toDomain(enderecoDto.getCondominio()))
         .apartamento(toDomain(enderecoDto.getApartamento()))
+        .build();
+  }
+
+  public static CondominioDto toDto(Condominio condominio) {
+    if (condominio == null) {
+      return null;
+    }
+
+    return CondominioDto.builder()
+        .nome(condominio.nome())
+        .numeroCasa(condominio.numeroCasa())
+        .complemento(condominio.complemento())
+        .build();
+  }
+
+  public static Condominio toDomain(CondominioDto condominioDto) {
+    if (condominioDto == null) {
+      return null;
+    }
+
+    return Condominio.builder()
+        .nome(condominioDto.nome())
+        .numeroCasa(condominioDto.numeroCasa())
+        .complemento(condominioDto.complemento())
         .build();
   }
 
@@ -70,30 +94,6 @@ public class EnderecoMapper {
         .bloco(apartamentoDto.bloco())
         .andar(apartamentoDto.andar())
         .complemento(apartamentoDto.complemento())
-        .build();
-  }
-
-  public static CondominioDto toDto(Condominio condominio) {
-    if (condominio == null) {
-      return null;
-    }
-
-    return CondominioDto.builder()
-        .nome(condominio.nome())
-        .numeroCasa(condominio.numeroCasa())
-        .complemento(condominio.complemento())
-        .build();
-  }
-
-  public static Condominio toDomain(CondominioDto condominioDto) {
-    if (condominioDto == null) {
-      return null;
-    }
-
-    return Condominio.builder()
-        .nome(condominioDto.nome())
-        .numeroCasa(condominioDto.numeroCasa())
-        .complemento(condominioDto.complemento())
         .build();
   }
 }
